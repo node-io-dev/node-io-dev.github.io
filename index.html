@@ -56,9 +56,21 @@
     </script>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+
         body {
             background-color: #fafaf9;
             color: #1c1917;
+            overflow-x: hidden;
+            max-width: 100%;
+            position: relative;
         }
 
         .glass-panel {
@@ -204,6 +216,18 @@
         .sub-services-container.expanded {
             max-height: 2000px;
         }
+
+        main {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        section {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
     </style>
 </head>
 
@@ -240,8 +264,8 @@
     </div>
 
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 glass-panel border-b border-brand-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav class="fixed top-0 left-0 right-0 w-full z-50 glass-panel border-b border-brand-100">
+        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex-shrink-0 flex items-center gap-2">
                     <img src="logo.png" alt="NODE.io Logo" class="w-10 h-10 object-contain">
@@ -312,7 +336,7 @@
         <section id="hero" class="min-h-[80vh] flex items-center justify-center relative overflow-hidden vanta-bg">
             <div class="absolute inset-0 bg-gradient-to-b from-transparent to-brand-50/80"></div>
 
-            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
+            <div class="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
                 <span
                     class="inline-block py-2 px-4 rounded-full bg-brand-100 text-brand-800 text-xs font-bold tracking-wider mb-6"
                     data-aos="fade-down">SRI LANKA'S EMERGING TECH POWERHOUSE</span>
@@ -321,11 +345,11 @@
                     <span class="block mb-2 gradient-text">CONNECTING IDEAS.</span>
                     <span class="block text-gray-900">BUILDING SOLUTIONS</span>
                 </h1>
-                <p class="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-gray-700 leading-relaxed" data-aos="fade-up" data-aos-delay="200">
+                <p class="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-gray-700 leading-relaxed px-4" data-aos="fade-up" data-aos-delay="200">
                     From Custom Web & Mobile Apps to AI-Driven Automation. We are Node.io Solutions — building the
                     digital infrastructure for Sri Lankan businesses to scale globally.
                 </p>
-                <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4" data-aos="fade-up"
+                <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4 px-4" data-aos="fade-up"
                     data-aos-delay="300">
                     <button onclick="scrollToSection('services')"
                         class="px-8 py-4 gradient-bg text-white rounded-xl font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all transform">
@@ -341,10 +365,10 @@
 
         <!-- SERVICES SECTION -->
         <section id="services" class="py-16 md:py-20 bg-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12 md:mb-16" data-aos="fade-up">
                     <h2 class="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">The NODE.io Ecosystem</h2>
-                    <p class="mt-4 text-gray-600 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+                    <p class="mt-4 text-gray-600 text-base md:text-lg max-w-2xl mx-auto leading-relaxed px-4">
                         We don't just build websites; we create integrated digital environments. Explore our
                         comprehensive service suite designed to cover every aspect of your digital presence, from
                         backend code to social media branding.
@@ -359,7 +383,7 @@
 
         <!-- ADVANTAGE / PRICING STRATEGY SECTION -->
         <section id="advantage" class="py-16 md:py-20 bg-brand-50 border-y border-brand-100">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
 
                     <!-- Text Content -->
@@ -435,7 +459,7 @@
                 class="absolute bottom-0 left-0 w-72 h-72 md:w-96 md:h-96 bg-brand-neon rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000">
             </div>
 
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="text-center mb-12" data-aos="fade-down">
                     <span class="text-brand-neon font-bold tracking-widest uppercase text-sm">Future Ready</span>
                     <h2 class="text-3xl md:text-4xl lg:text-5xl font-display font-bold mt-2">AI Integration & RAG Bots</h2>
@@ -469,7 +493,7 @@
 
         <!-- CONTACT SECTION -->
         <section id="contact" class="py-16 md:py-20 bg-brand-50">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="bg-white rounded-2xl shadow-xl overflow-hidden" data-aos="fade-up">
                     <div class="grid grid-cols-1 md:grid-cols-2">
                         <div class="p-8 md:p-10 gradient-bg text-white flex flex-col justify-between">
