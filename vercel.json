@@ -1,16 +1,56 @@
 {
+  "version": 2,
+  "name": "nodeio-website",
+  "builds": [
+    {
+      "src": "**/*.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "**/*.png",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "**/*.jpg",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "**/*.css",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "**/*.js",
+      "use": "@vercel/static"
+    }
+  ],
   "routes": [
     {
-      "src": "/",
+      "src": "^/$",
       "dest": "/home.html"
     },
     {
-      "src": "/(.*).html",
-      "dest": "/$1.html"
+      "src": "^/home$",
+      "dest": "/home.html"
     },
     {
-      "src": "/(.*)",
-      "dest": "/$1.html"
+      "src": "^/ai-automation$",
+      "dest": "/ai-automation.html"
+    },
+    {
+      "src": "^/web-development$",
+      "dest": "/web-development.html"
+    },
+    {
+      "src": "^/ecommerce-development$",
+      "dest": "/ecommerce-development.html"
+    },
+    {
+      "src": "^/social-media-branding$",
+      "dest": "/social-media-branding.html"
+    },
+    {
+      "src": "^/(.*)\\.html$",
+      "dest": "/$1"
     }
   ],
   "cleanUrls": true,
