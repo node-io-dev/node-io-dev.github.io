@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NODE.io Solutions | Interactive Profile</title>
+    <title>Node.io Solutions</title>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -17,7 +17,7 @@
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Space+Grotesk:wght@300;500;700&display=swap"
         rel="stylesheet">
 
-    <!-- FontAwesome for Icons (No SVGs) -->
+    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- AOS Animation Library -->
@@ -34,16 +34,20 @@
                     },
                     colors: {
                         brand: {
-                            50: '#fafaf9',
-                            100: '#f5f5f4',
-                            200: '#e7e5e4',
-                            300: '#d6d3d1',
-                            400: '#a8a29e',
-                            500: '#78716c',
-                            600: '#57534e',
-                            800: '#292524', // Warm black
-                            900: '#1c1917',
-                            accent: '#ea580c', // Burnt Orange for highlight
+                            50: '#F8F3FB',
+                            100: '#F0E7F7',
+                            200: '#E1CFEF',
+                            300: '#D2B7E7',
+                            400: '#C39FDF',
+                            500: '#B487D7',
+                            600: '#9966CC',
+                            700: '#8855BB',
+                            800: '#7744AA',
+                            900: '#5A338C',
+                            950: '#3D226E',
+                            accent: '#8855BB',
+                            hover: '#9966CC',
+                            neon: '#A76FE8',
                         }
                     }
                 }
@@ -52,27 +56,22 @@
     </script>
 
     <style>
-        /* Custom Utilities */
         body {
             background-color: #fafaf9;
-            /* Warm neutral background */
             color: #1c1917;
         }
 
         .glass-panel {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
             border: 1px solid rgba(231, 229, 228, 0.5);
         }
 
-        /* Chart Container Strict Styling */
         .chart-container {
             position: relative;
             width: 100%;
             max-width: 600px;
-            /* Max width constraint */
             height: 350px;
-            /* Base height */
             max-height: 400px;
             margin-left: auto;
             margin-right: auto;
@@ -85,11 +84,10 @@
         }
 
         .nav-active {
-            border-bottom: 2px solid #ea580c;
-            color: #ea580c;
+            border-bottom: 2px solid #8855BB;
+            color: #8855BB;
         }
 
-        /* Hide scrollbar for clean horizontal scrolling if needed */
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
@@ -98,57 +96,156 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
-    </style>
 
-    <!-- 
-    PLACEHOLDER COMMENTS REQUIRED BY PROMPT:
-    
-    <!-- Chosen Palette: Warm Neutrals (Stone/Warm Grey) with Burnt Orange Accent. This creates a modern, sophisticated, and "grounded" feel suitable for a professional agency, distinguishing it from the generic "tech blue" competitors. -->
+        .gradient-text {
+            background: linear-gradient(135deg, #7744AA, #8855BB, #A76FE8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
-    <!-- Application Structure Plan: 
-         1. Hero Section: Immediate value proposition and brand identity.
-         2. Service Ecosystem (Interactive Grid): Categorizes the wide range of services (Web, AI, Marketing) into logical groups to prevent information overload.
-         3. The Cost Advantage (Chart.js Bar): Directly addresses the "Best Pricing Plans" goal by visualizing cost-efficiency vs. traditional agencies.
-         4. Team Intelligence (Chart.js Radar): Visualizes the specific strengths of the 5 team members to show the "Full Stack" capability.
-         5. AI & Automation (Feature): Highlights the unique selling point (RAG bots, automation).
-         6. Strategic Roadmap: Shows the process, establishing trust.
-         Rationale: This structure moves from "What we do" to "Why us (Price)" to "Who we are (Trust)" to "How we do it (Process)," creating a logical sales funnel on a single page. 
-    -->
+        .gradient-bg {
+            background: linear-gradient(135deg, #7744AA, #8855BB, #A76FE8);
+        }
 
-    <!-- Visualization & Content Choices:
-         1. Pricing/Efficiency Comparison:
-            - Goal: Prove "Optimized for Sri Lankan Prices".
-            - Viz: Grouped Bar Chart (Chart.js).
-            - Interaction: Toggle between "Startup Package" and "Enterprise Scale".
-            - Justification: A visual comparison is more powerful than a price list. It shows value retention at lower cost.
-         
-         2. Team Expertise:
-            - Goal: Showcase the specific roles (Fabien/AI, Yusuf/Business, etc.).
-            - Viz: Radar Chart (Chart.js).
-            - Interaction: Clicking a team member's card updates the radar chart to show their specific skill distribution.
-            - Justification: Demonstrates the multi-disciplinary nature of the team (Tech + Creative + Business) effectively.
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-4px);
+        }
+
+        .service-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .service-card.inactive {
+            opacity: 0.5;
+            filter: grayscale(0.3);
+        }
+
+        .service-card.active {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(136, 85, 187, 0.2);
+            border-color: #8855BB;
+            z-index: 10;
+            position: relative;
+        }
+
+        .service-expand-icon {
+            transition: transform 0.3s ease;
+        }
+
+        @keyframes blob {
+            0% {
+                transform: translate(0px, 0px) scale(1);
+            }
+            33% {
+                transform: translate(30px, -50px) scale(1.1);
+            }
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
+            100% {
+                transform: translate(0px, 0px) scale(1);
+            }
+        }
+
+        .animate-blob {
+            animation: blob 7s infinite;
+        }
+
+        .animation-delay-2000 {
+            animation-delay: 2s;
+        }
+
+        @media (max-width: 768px) {
+            button, a {
+                min-height: 44px;
+                min-width: 44px;
+            }
             
-         3. Service Cards:
-            - Goal: Present the extensive list of services without clutter.
-            - Viz: HTML/CSS Grid with Hover effects.
-            - Interaction: Hover to see sub-services.
-            - Justification: text-heavy lists are boring; cards invite exploration.
-    -->
+            .mobile-spacing {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
 
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-    -->
+            .service-card.inactive {
+                opacity: 1;
+                filter: none;
+            }
 
+            .service-card.active {
+                transform: translateY(0);
+                box-shadow: 0 10px 30px rgba(136, 85, 187, 0.15);
+            }
+        }
+
+        button:focus-visible,
+        a:focus-visible,
+        input:focus-visible,
+        select:focus-visible,
+        textarea:focus-visible {
+            outline: 2px solid #8855BB;
+            outline-offset: 2px;
+        }
+
+        .sub-services-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out;
+        }
+
+        .sub-services-container.expanded {
+            max-height: 2000px;
+        }
+    </style>
 </head>
 
-<body class="antialiased font-sans text-brand-800 selection:bg-brand-accent selection:text-white">
+<body class="antialiased font-sans text-gray-900 selection:bg-brand-accent selection:text-white">
+
+    <!-- Social Media Fixed Sidebar (Desktop) -->
+    <div class="hidden lg:flex fixed left-6 top-1/2 transform -translate-y-1/2 z-40 flex-col gap-4">
+        <a href="mailto:ionode25@gmail.com" 
+           class="social-icon w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center text-brand-700 hover:bg-brand-700 hover:text-white border border-brand-100"
+           aria-label="Email">
+            <i class="fa-solid fa-envelope text-lg"></i>
+        </a>
+        <a href="https://www.instagram.com/node.io.solutions/" 
+           target="_blank"
+           rel="noopener noreferrer"
+           class="social-icon w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center text-brand-700 hover:bg-gradient-to-br hover:from-purple-600 hover:to-pink-500 hover:text-white border border-brand-100"
+           aria-label="Instagram">
+            <i class="fa-brands fa-instagram text-lg"></i>
+        </a>
+        <a href="https://www.facebook.com/profile.php?id=61571731796935" 
+           target="_blank"
+           rel="noopener noreferrer"
+           class="social-icon w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center text-brand-700 hover:bg-brand-700 hover:text-white border border-brand-100"
+           aria-label="Facebook">
+            <i class="fa-brands fa-facebook-f text-lg"></i>
+        </a>
+        <a href="https://www.tiktok.com/@node.io.solutions" 
+           target="_blank"
+           rel="noopener noreferrer"
+           class="social-icon w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center text-brand-700 hover:bg-brand-950 hover:text-white border border-brand-100"
+           aria-label="TikTok">
+            <i class="fa-brands fa-tiktok text-lg"></i>
+        </a>
+    </div>
 
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 glass-panel border-b border-brand-200">
+    <nav class="fixed top-0 w-full z-50 glass-panel border-b border-brand-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex-shrink-0 flex items-center gap-2">
                     <img src="logo.png" alt="NODE.io Logo" class="w-10 h-10 object-contain">
-                    <span class="font-display font-bold text-xl tracking-tight">NODE.io</span>
+                    <span class="font-display font-bold text-xl tracking-tight text-gray-900">NODE.io</span>
                 </div>
                 <div class="hidden md:flex space-x-8">
                     <button onclick="scrollToSection('hero')"
@@ -161,18 +258,49 @@
                         class="nav-link text-sm font-medium hover:text-brand-accent transition-colors">Contact</button>
                 </div>
                 <div class="md:hidden">
-                    <button id="mobile-menu-btn" class="text-brand-800 p-2">
-                        <i class="fa-solid fa-bars"></i>
+                    <button id="mobile-menu-btn" class="text-gray-900 p-2" aria-label="Toggle menu">
+                        <i class="fa-solid fa-bars text-xl"></i>
                     </button>
                 </div>
             </div>
         </div>
-        <!-- Mobile Menu (Hidden by default) -->
-        <div id="mobile-menu" class="hidden md:hidden bg-brand-50 border-t border-brand-200 p-4">
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-sm border-t border-brand-100 p-4">
             <div class="flex flex-col space-y-3">
-                <button onclick="scrollToSection('hero')" class="text-left font-medium">Home</button>
-                <button onclick="scrollToSection('services')" class="text-left font-medium">Services</button>
-                <button onclick="scrollToSection('advantage')" class="text-left font-medium">Advantage</button>
+                <button onclick="scrollToSection('hero')" class="text-left font-medium py-2 hover:text-brand-accent transition-colors">Home</button>
+                <button onclick="scrollToSection('services')" class="text-left font-medium py-2 hover:text-brand-accent transition-colors">Services</button>
+                <button onclick="scrollToSection('advantage')" class="text-left font-medium py-2 hover:text-brand-accent transition-colors">Advantage</button>
+                <button onclick="scrollToSection('contact')" class="text-left font-medium py-2 hover:text-brand-accent transition-colors">Contact</button>
+                
+                <!-- Mobile Social Icons -->
+                <div class="flex gap-4 pt-4 border-t border-brand-100">
+                    <a href="mailto:ionode25@gmail.com" 
+                       class="social-icon w-10 h-10 rounded-full bg-brand-50 flex items-center justify-center text-brand-700 hover:bg-brand-700 hover:text-white"
+                       aria-label="Email">
+                        <i class="fa-solid fa-envelope"></i>
+                    </a>
+                    <a href="https://www.instagram.com/node.io.solutions/" 
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="social-icon w-10 h-10 rounded-full bg-brand-50 flex items-center justify-center text-brand-700 hover:bg-gradient-to-br hover:from-purple-600 hover:to-pink-500 hover:text-white"
+                       aria-label="Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=61571731796935" 
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="social-icon w-10 h-10 rounded-full bg-brand-50 flex items-center justify-center text-brand-700 hover:bg-brand-700 hover:text-white"
+                       aria-label="Facebook">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@node.io.solutions" 
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="social-icon w-10 h-10 rounded-full bg-brand-50 flex items-center justify-center text-brand-700 hover:bg-brand-950 hover:text-white"
+                       aria-label="TikTok">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </nav>
@@ -186,25 +314,25 @@
 
             <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
                 <span
-                    class="inline-block py-1 px-3 rounded-full bg-brand-200 text-brand-800 text-xs font-bold tracking-wider mb-6"
+                    class="inline-block py-2 px-4 rounded-full bg-brand-100 text-brand-800 text-xs font-bold tracking-wider mb-6"
                     data-aos="fade-down">SRI LANKA'S EMERGING TECH POWERHOUSE</span>
-                <h1 class="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-brand-900 mb-6 leading-tight"
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-gray-900 mb-6 leading-tight"
                     data-aos="fade-up" data-aos-delay="100">
-                    <span class="block mb-2 text-brand-accent code-text">CONNECTING IDEAS.</span>
-                    <span class="block text-brand-900">BUILDING SOLUTIONS</span>
+                    <span class="block mb-2 gradient-text">CONNECTING IDEAS.</span>
+                    <span class="block text-gray-900">BUILDING SOLUTIONS</span>
                 </h1>
-                <p class="mt-4 max-w-2xl mx-auto text-xl text-brand-600" data-aos="fade-up" data-aos-delay="200">
-                    From Custom Web & Mobile Apps to AI-Driven Automation. We are NODE.io Solutions — building the
+                <p class="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-gray-700 leading-relaxed" data-aos="fade-up" data-aos-delay="200">
+                    From Custom Web & Mobile Apps to AI-Driven Automation. We are Node.io Solutions — building the
                     digital infrastructure for Sri Lankan businesses to scale globally.
                 </p>
                 <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4" data-aos="fade-up"
                     data-aos-delay="300">
                     <button onclick="scrollToSection('services')"
-                        class="px-8 py-4 bg-brand-900 text-white rounded-lg font-bold shadow-lg hover:bg-brand-800 transition-all transform hover:-translate-y-1">
+                        class="px-8 py-4 gradient-bg text-white rounded-xl font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all transform">
                         Explore Our Services
                     </button>
                     <button onclick="scrollToSection('advantage')"
-                        class="px-8 py-4 bg-white text-brand-900 border border-brand-200 rounded-lg font-bold shadow-sm hover:bg-brand-50 transition-all">
+                        class="px-8 py-4 bg-white text-brand-700 border-2 border-brand-700 rounded-xl font-bold shadow-sm hover:bg-brand-50 hover:scale-105 transition-all">
                         View Pricing Strategy
                     </button>
                 </div>
@@ -212,62 +340,62 @@
         </section>
 
         <!-- SERVICES SECTION -->
-        <section id="services" class="py-20 bg-white">
+        <section id="services" class="py-16 md:py-20 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16" data-aos="fade-up">
-                    <h2 class="text-3xl font-display font-bold text-brand-900">The NODE.io Ecosystem</h2>
-                    <p class="mt-4 text-brand-600 max-w-2xl mx-auto">
+                <div class="text-center mb-12 md:mb-16" data-aos="fade-up">
+                    <h2 class="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">The NODE.io Ecosystem</h2>
+                    <p class="mt-4 text-gray-600 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
                         We don't just build websites; we create integrated digital environments. Explore our
                         comprehensive service suite designed to cover every aspect of your digital presence, from
                         backend code to social media branding.
                     </p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="services-grid">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" id="services-grid">
                     <!-- JS will populate this -->
                 </div>
             </div>
         </section>
 
         <!-- ADVANTAGE / PRICING STRATEGY SECTION -->
-        <section id="advantage" class="py-20 bg-brand-50 border-y border-brand-200">
+        <section id="advantage" class="py-16 md:py-20 bg-brand-50 border-y border-brand-100">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
 
                     <!-- Text Content -->
                     <div data-aos="fade-right">
-                        <h2 class="text-3xl font-display font-bold text-brand-900 mb-6">Optimized for Sri Lankan
+                        <h2 class="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-6">Optimized for Sri Lankan
                             Innovation</h2>
-                        <p class="text-brand-600 mb-6">
+                        <p class="text-gray-600 mb-6 leading-relaxed">
                             Startups and SMEs in Sri Lanka often struggle between expensive corporate agencies and
                             unreliable freelancers. NODE.io bridges this gap.
                         </p>
-                        <p class="text-brand-600 mb-8">
-                            Our pricing strategy is engineered to maximize ROI. We leverage <strong>AI
-                                Automation</strong> and <strong>Reusable Component Architectures</strong> to reduce
+                        <p class="text-gray-600 mb-8 leading-relaxed">
+                            Our pricing strategy is engineered to maximize ROI. We leverage <strong class="text-brand-700">AI
+                                Automation</strong> and <strong class="text-brand-700">Reusable Component Architectures</strong> to reduce
                             development time, passing those savings directly to you without compromising on quality.
                         </p>
 
                         <div class="space-y-4">
-                            <div class="flex items-center gap-4 p-4 bg-white rounded-lg shadow-sm">
+                            <div class="flex items-start gap-4 p-4 md:p-5 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
                                 <div
-                                    class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600">
-                                    <i class="fa-solid fa-tags"></i>
+                                    class="w-12 h-12 flex-shrink-0 rounded-xl bg-green-50 flex items-center justify-center text-green-600">
+                                    <i class="fa-solid fa-tags text-xl"></i>
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-brand-900">Adaptive Pricing Plans</h4>
-                                    <p class="text-sm text-brand-500">Tailored packages for Startups, SMEs, and
+                                    <h4 class="font-bold text-gray-900 mb-1">Adaptive Pricing Plans</h4>
+                                    <p class="text-sm text-gray-600">Tailored packages for Startups, SMEs, and
                                         Enterprises.</p>
                                 </div>
                             </div>
-                            <div class="flex items-center gap-4 p-4 bg-white rounded-lg shadow-sm">
+                            <div class="flex items-start gap-4 p-4 md:p-5 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
                                 <div
-                                    class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
-                                    <i class="fa-solid fa-robot"></i>
+                                    class="w-12 h-12 flex-shrink-0 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
+                                    <i class="fa-solid fa-robot text-xl"></i>
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-brand-900">AI-Powered Efficiency</h4>
-                                    <p class="text-sm text-brand-500">We use AI to automate routine dev tasks, speeding
+                                    <h4 class="font-bold text-gray-900 mb-1">AI-Powered Efficiency</h4>
+                                    <p class="text-sm text-gray-600">We use AI to automate routine dev tasks, speeding
                                         up delivery.</p>
                                 </div>
                             </div>
@@ -275,11 +403,11 @@
                     </div>
 
                     <!-- Interactive Chart -->
-                    <div class="bg-white p-6 rounded-2xl shadow-lg border border-brand-100" data-aos="fade-left">
-                        <div class="mb-4 flex justify-between items-center">
-                            <h3 class="font-bold text-brand-800">Market Value Comparison</h3>
+                    <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-brand-100" data-aos="fade-left">
+                        <div class="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                            <h3 class="font-bold text-gray-900 text-lg">Market Value Comparison</h3>
                             <select id="project-scale-selector"
-                                class="text-sm border-none bg-brand-50 rounded px-2 py-1 text-brand-600 cursor-pointer focus:ring-0">
+                                class="text-sm border border-brand-200 bg-brand-50 rounded-lg px-3 py-2 text-brand-700 cursor-pointer focus:ring-2 focus:ring-brand-accent focus:border-transparent">
                                 <option value="startup">Startup Scale</option>
                                 <option value="enterprise">Enterprise Scale</option>
                             </select>
@@ -289,7 +417,7 @@
                         <div class="chart-container">
                             <canvas id="pricingChart"></canvas>
                         </div>
-                        <p class="text-center text-xs text-brand-400 mt-2">
+                        <p class="text-center text-xs text-gray-500 mt-4">
                             *Estimated value delivery based on market feature sets vs. cost.
                         </p>
                     </div>
@@ -299,40 +427,40 @@
         </section>
 
         <!-- AI & AUTOMATION HIGHLIGHT -->
-        <section class="py-20 bg-brand-900 text-white relative overflow-hidden">
+        <section class="py-16 md:py-20 bg-brand-950 text-white relative overflow-hidden">
             <div
-                class="absolute top-0 right-0 w-96 h-96 bg-brand-800 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob">
+                class="absolute top-0 right-0 w-72 h-72 md:w-96 md:h-96 bg-brand-800 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob">
             </div>
             <div
-                class="absolute bottom-0 left-0 w-96 h-96 bg-brand-accent rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000">
+                class="absolute bottom-0 left-0 w-72 h-72 md:w-96 md:h-96 bg-brand-neon rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000">
             </div>
 
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="text-center mb-12" data-aos="fade-down">
-                    <span class="text-brand-accent font-bold tracking-widest uppercase text-sm">Future Ready</span>
-                    <h2 class="text-3xl md:text-5xl font-display font-bold mt-2">AI Integration & RAG Bots</h2>
+                    <span class="text-brand-neon font-bold tracking-widest uppercase text-sm">Future Ready</span>
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-display font-bold mt-2">AI Integration & RAG Bots</h2>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                    <div class="p-6 rounded-xl bg-white/5 backdrop-blur border border-white/10 hover:border-brand-accent/50 transition-colors"
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 text-center">
+                    <div class="p-6 md:p-8 rounded-2xl bg-white/5 backdrop-blur border border-white/10 hover:border-brand-neon/50 hover:bg-white/10 transition-all"
                         data-aos="zoom-in" data-aos-delay="100">
-                        <div class="text-4xl text-brand-accent mb-4"><i class="fa-solid fa-brain"></i></div>
-                        <h3 class="text-xl font-bold mb-2">Process Automation</h3>
-                        <p class="text-brand-300 text-sm">Automate repetitive business tasks, lead generation, and web
+                        <div class="text-4xl md:text-5xl text-brand-neon mb-4"><i class="fa-solid fa-brain"></i></div>
+                        <h3 class="text-xl font-bold mb-3">Process Automation</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed">Automate repetitive business tasks, lead generation, and web
                             scraping to save hundreds of hours.</p>
                     </div>
-                    <div class="p-6 rounded-xl bg-white/5 backdrop-blur border border-white/10 hover:border-brand-accent/50 transition-colors"
+                    <div class="p-6 md:p-8 rounded-2xl bg-white/5 backdrop-blur border border-white/10 hover:border-brand-neon/50 hover:bg-white/10 transition-all"
                         data-aos="zoom-in" data-aos-delay="200">
-                        <div class="text-4xl text-brand-accent mb-4"><i class="fa-solid fa-comments"></i></div>
-                        <h3 class="text-xl font-bold mb-2">RAG Chatbots</h3>
-                        <p class="text-brand-300 text-sm">Voice Agents and Chatbots trained on your specific data
+                        <div class="text-4xl md:text-5xl text-brand-neon mb-4"><i class="fa-solid fa-comments"></i></div>
+                        <h3 class="text-xl font-bold mb-3">RAG Chatbots</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed">Voice Agents and Chatbots trained on your specific data
                             (Vector Base) for intelligent customer support.</p>
                     </div>
-                    <div class="p-6 rounded-xl bg-white/5 backdrop-blur border border-white/10 hover:border-brand-accent/50 transition-colors"
+                    <div class="p-6 md:p-8 rounded-2xl bg-white/5 backdrop-blur border border-white/10 hover:border-brand-neon/50 hover:bg-white/10 transition-all"
                         data-aos="zoom-in" data-aos-delay="300">
-                        <div class="text-4xl text-brand-accent mb-4"><i class="fa-solid fa-chart-line"></i></div>
-                        <h3 class="text-xl font-bold mb-2">Business Lead Gen</h3>
-                        <p class="text-brand-300 text-sm">AI-driven strategies to identify and capture high-quality
+                        <div class="text-4xl md:text-5xl text-brand-neon mb-4"><i class="fa-solid fa-chart-line"></i></div>
+                        <h3 class="text-xl font-bold mb-3">Business Lead Gen</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed">AI-driven strategies to identify and capture high-quality
                             leads optimized for the Sri Lankan market.</p>
                     </div>
                 </div>
@@ -340,46 +468,79 @@
         </section>
 
         <!-- CONTACT SECTION -->
-        <section id="contact" class="py-20 bg-brand-50">
+        <section id="contact" class="py-16 md:py-20 bg-brand-50">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="bg-white rounded-2xl shadow-xl overflow-hidden" data-aos="fade-up">
                     <div class="grid grid-cols-1 md:grid-cols-2">
-                        <div class="p-10 bg-brand-800 text-white flex flex-col justify-between">
+                        <div class="p-8 md:p-10 gradient-bg text-white flex flex-col justify-between">
                             <div>
-                                <h3 class="text-2xl font-bold font-display mb-4">Get a Quote</h3>
-                                <p class="text-brand-300 mb-8">Ready to shine above the competition? Let's build
+                                <h3 class="text-2xl md:text-3xl font-bold font-display mb-4">Get a Quote</h3>
+                                <p class="text-white/90 mb-8 leading-relaxed">Ready to shine above the competition? Let's build
                                     something extraordinary.</p>
 
-                                <div class="space-y-4">
+                                <div class="space-y-5">
                                     <div class="flex items-center gap-3">
-                                        <i class="fa-solid fa-location-dot text-brand-accent"></i>
+                                        <i class="fa-solid fa-location-dot text-brand-neon text-lg"></i>
                                         <span>Colombo, Sri Lanka</span>
                                     </div>
                                     <div class="flex items-center gap-3">
-                                        <i class="fa-solid fa-envelope text-brand-accent"></i>
-                                        <span>ionode25@gmail.com</span>
+                                        <i class="fa-solid fa-envelope text-brand-neon text-lg"></i>
+                                        <a href="mailto:ionode25@gmail.com" class="hover:text-brand-neon transition-colors">ionode25@gmail.com</a>
+                                    </div>
+                                </div>
+
+                                <!-- Social Media Links in Contact -->
+                                <div class="mt-8 pt-8 border-t border-white/20">
+                                    <p class="text-sm text-white/90 mb-4">Connect with us</p>
+                                    <div class="flex gap-3">
+                                        <a href="mailto:ionode25@gmail.com" 
+                                           class="w-10 h-10 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                                           aria-label="Email">
+                                            <i class="fa-solid fa-envelope"></i>
+                                        </a>
+                                        <a href="https://www.instagram.com/node.io.solutions/" 
+                                           target="_blank"
+                                           rel="noopener noreferrer"
+                                           class="w-10 h-10 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                                           aria-label="Instagram">
+                                            <i class="fa-brands fa-instagram"></i>
+                                        </a>
+                                        <a href="https://www.facebook.com/profile.php?id=61571731796935" 
+                                           target="_blank"
+                                           rel="noopener noreferrer"
+                                           class="w-10 h-10 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                                           aria-label="Facebook">
+                                            <i class="fa-brands fa-facebook-f"></i>
+                                        </a>
+                                        <a href="https://www.tiktok.com/@node.io.solutions" 
+                                           target="_blank"
+                                           rel="noopener noreferrer"
+                                           class="w-10 h-10 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                                           aria-label="TikTok">
+                                            <i class="fa-brands fa-tiktok"></i>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                             <div class="mt-8">
-                                <p class="text-sm text-brand-400">© 2025 NODE.io Solutions</p>
+                                <p class="text-sm text-white/90">© 2025 Node.io Solutions</p>
                             </div>
                         </div>
 
-                        <div class="p-10">
-                            <form class="space-y-4"
+                        <div class="p-8 md:p-10">
+                            <form class="space-y-5"
                                 onsubmit="event.preventDefault(); alert('Thank you! Our team will contact you shortly.');">
                                 <div>
-                                    <label class="block text-sm font-medium text-brand-600 mb-1">Name</label>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Name</label>
                                     <input type="text"
-                                        class="w-full px-4 py-2 rounded-lg border border-brand-200 focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent"
+                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 transition-all"
                                         placeholder="Your Name">
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-brand-600 mb-1">Service
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Service
                                         Interest</label>
                                     <select
-                                        class="w-full px-4 py-2 rounded-lg border border-brand-200 focus:outline-none focus:border-brand-accent">
+                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 transition-all">
                                         <option>Web Development</option>
                                         <option>App Development</option>
                                         <option>AI Integration</option>
@@ -390,13 +551,13 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-brand-600 mb-1">Message</label>
-                                    <textarea rows="3"
-                                        class="w-full px-4 py-2 rounded-lg border border-brand-200 focus:outline-none focus:border-brand-accent"
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                                    <textarea rows="4"
+                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 transition-all resize-none"
                                         placeholder="Tell us about your idea..."></textarea>
                                 </div>
                                 <button type="submit"
-                                    class="w-full py-3 bg-brand-accent text-white font-bold rounded-lg hover:bg-orange-700 transition-colors">
+                                    class="w-full py-4 gradient-bg text-white font-bold rounded-lg hover:shadow-lg hover:scale-105 transition-all">
                                     Get a Quote
                                 </button>
                             </form>
@@ -508,14 +669,15 @@
         // --- RENDER FUNCTIONS ---
 
         function getServicePageLink(index) {
-            // 0: Web Development, 2: AI Integration, 4: Digital Marketing, 5: Creative Branding, 6: E-commerce Development
             if (index === 0) return '/web-development';
             if (index === 2) return '/ai-automation';
             if (index === 4) return '/social-media-branding';
             if (index === 5) return '/social-media-branding';
             if (index === 6) return '/ecommerce-development';
-            return '#contact'; // Default for other services
+            return '#contact';
         }
+
+        let activeServiceIndex = null;
 
         function renderServices() {
             const container = document.getElementById('services-grid');
@@ -523,40 +685,40 @@
                 const card = document.createElement('div');
                 card.setAttribute('data-aos', 'fade-up');
                 card.setAttribute('data-aos-delay', index * 100);
-                card.className = "group bg-white rounded-xl shadow-sm hover:shadow-md border border-brand-100 transition-all duration-300 overflow-hidden service-card";
+                card.className = "group bg-white rounded-2xl shadow-sm hover:shadow-xl border border-brand-100 transition-all duration-300 overflow-hidden service-card";
                 card.setAttribute('data-service-index', index);
                 
                 card.innerHTML = `
-                    <div class="p-6 cursor-pointer service-card-header" onclick="toggleService(${index}); event.stopPropagation();">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="w-12 h-12 rounded-lg bg-brand-50 text-brand-accent flex items-center justify-center text-xl group-hover:bg-brand-accent group-hover:text-white transition-colors">
+                    <div class="p-6 cursor-pointer service-card-header" onclick="toggleService(${index})">
+                        <div class="flex items-center justify-between mb-5">
+                            <div class="w-14 h-14 rounded-xl gradient-bg text-white flex items-center justify-center text-xl group-hover:shadow-lg transition-all">
                                 <i class="fa-solid ${service.icon}"></i>
                             </div>
-                            <i class="fa-solid fa-chevron-down text-brand-400 transition-transform service-expand-icon"></i>
+                            <i class="fa-solid fa-chevron-down text-brand-400 transition-transform service-expand-icon" data-icon-index="${index}"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-brand-900 mb-2">${service.title}</h3>
-                        <p class="text-brand-600 text-sm mb-4 min-h-[40px]">${service.desc}</p>
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">${service.title}</h3>
+                        <p class="text-gray-600 text-sm mb-4 min-h-[40px] leading-relaxed">${service.desc}</p>
                         <div class="flex flex-wrap gap-2">
-                            ${service.tags.map(tag => `<span class="px-2 py-1 bg-brand-50 text-brand-500 text-xs rounded border border-brand-100">${tag}</span>`).join('')}
+                            ${service.tags.map(tag => `<span class="px-3 py-1 bg-brand-50 text-brand-700 text-xs rounded-full border border-brand-200 font-medium">${tag}</span>`).join('')}
                         </div>
                     </div>
                     
-                    <!-- Sub-services Section (Initially Hidden) -->
-                    <div class="sub-services-container hidden bg-brand-50 border-t border-brand-200">
+                    <!-- Sub-services Section -->
+                    <div class="sub-services-container bg-gradient-to-b from-brand-50 to-white border-t border-brand-200" data-container-index="${index}">
                         <div class="p-6">
                             <h4 class="text-sm font-bold text-brand-800 mb-4 uppercase tracking-wider">What We Offer</h4>
                             <div class="space-y-3">
                                 ${service.subServices.map(sub => `
-                                    <div class="flex items-start gap-3 p-3 bg-white rounded-lg border border-brand-100 hover:border-brand-accent transition-colors">
+                                    <div class="flex items-start gap-3 p-4 bg-white rounded-xl border border-brand-100 hover:border-brand-accent hover:shadow-md transition-all">
                                         <div class="w-2 h-2 rounded-full bg-brand-accent mt-2 flex-shrink-0"></div>
                                         <div>
-                                            <h5 class="font-bold text-brand-900 text-sm mb-1">${sub.name}</h5>
-                                            <p class="text-brand-600 text-xs">${sub.desc}</p>
+                                            <h5 class="font-bold text-gray-900 text-sm mb-1">${sub.name}</h5>
+                                            <p class="text-gray-600 text-xs leading-relaxed">${sub.desc}</p>
                                         </div>
                                     </div>
                                 `).join('')}
                             </div>
-                            <button onclick="window.location.href='${getServicePageLink(index)}'" class="mt-4 w-full py-2 bg-brand-accent text-white font-bold text-sm rounded-lg hover:bg-orange-700 transition-colors">
+                            <button onclick="window.location.href='${getServicePageLink(index)}'" class="mt-6 w-full py-3 gradient-bg text-white font-bold text-sm rounded-xl hover:shadow-lg hover:scale-105 transition-all">
                                 ${[0, 2, 4, 5, 6].includes(index) ? 'View Packages' : 'Get Started'} <i class="fa-solid fa-arrow-right ml-2"></i>
                             </button>
                         </div>
@@ -566,10 +728,7 @@
             });
         }
 
-        // Toggle service expansion
         function toggleService(index) {
-            event.stopPropagation(); // Prevent event bubbling
-            
             const allCards = document.querySelectorAll('.service-card');
             const clickedCard = document.querySelector(`[data-service-index="${index}"]`);
             
@@ -578,35 +737,70 @@
             const subServicesContainer = clickedCard.querySelector('.sub-services-container');
             const expandIcon = clickedCard.querySelector('.service-expand-icon');
             
-            // Check if already expanded
-            const isExpanded = !subServicesContainer.classList.contains('hidden');
+            const isCurrentlyActive = activeServiceIndex === index;
             
-            // Close all other services first
-            allCards.forEach((card) => {
-                if (card !== clickedCard) {
-                    const container = card.querySelector('.sub-services-container');
-                    const icon = card.querySelector('.service-expand-icon');
-                    if (container && icon) {
-                        container.classList.add('hidden');
-                        icon.style.transform = 'rotate(0deg)';
+            // Close all services
+            allCards.forEach((card, idx) => {
+                const container = card.querySelector('.sub-services-container');
+                const icon = card.querySelector('.service-expand-icon');
+                
+                if (container && icon) {
+                    container.classList.remove('expanded');
+                    icon.style.transform = 'rotate(0deg)';
+                }
+                
+                // Desktop only: Apply inactive state
+                if (window.innerWidth >= 768) {
+                    card.classList.remove('active');
+                    if (activeServiceIndex !== null && idx !== activeServiceIndex) {
+                        card.classList.add('inactive');
+                    } else {
+                        card.classList.remove('inactive');
                     }
                 }
             });
             
-            // Toggle current service
-            if (isExpanded) {
-                subServicesContainer.classList.add('hidden');
-                expandIcon.style.transform = 'rotate(0deg)';
-            } else {
-                subServicesContainer.classList.remove('hidden');
-                expandIcon.style.transform = 'rotate(180deg)';
-                
-                // Smooth scroll to the card
-                setTimeout(() => {
-                    clickedCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                }, 100);
+            // If clicking the same card, close it
+            if (isCurrentlyActive) {
+                activeServiceIndex = null;
+                allCards.forEach(card => {
+                    card.classList.remove('inactive', 'active');
+                });
+                return;
             }
+            
+            // Open the clicked card
+            activeServiceIndex = index;
+            subServicesContainer.classList.add('expanded');
+            expandIcon.style.transform = 'rotate(180deg)';
+            
+            // Desktop only: Apply active/inactive states
+            if (window.innerWidth >= 768) {
+                clickedCard.classList.add('active');
+                clickedCard.classList.remove('inactive');
+                
+                allCards.forEach((card, idx) => {
+                    if (idx !== index) {
+                        card.classList.add('inactive');
+                        card.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Smooth scroll to card
+            setTimeout(() => {
+                clickedCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 150);
         }
+
+        // Reset states on window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth < 768) {
+                document.querySelectorAll('.service-card').forEach(card => {
+                    card.classList.remove('inactive', 'active');
+                });
+            }
+        });
 
         // --- CHARTS CONFIGURATION ---
 
@@ -620,15 +814,17 @@
                 datasets: [
                     {
                         label: 'Avg. Agency Cost',
-                        data: [100, 100, 100, 100], // Normalized base
+                        data: [100, 100, 100, 100],
                         backgroundColor: '#d6d3d1',
-                        borderRadius: 4
+                        borderRadius: 8,
+                        borderWidth: 0
                     },
                     {
                         label: 'NODE.io Optimized',
-                        data: [70, 75, 60, 50], // Showing efficiency savings
-                        backgroundColor: '#ea580c',
-                        borderRadius: 4
+                        data: [70, 75, 60, 50],
+                        backgroundColor: '#8855BB',
+                        borderRadius: 8,
+                        borderWidth: 0
                     }
                 ]
             };
@@ -640,13 +836,15 @@
                         label: 'Avg. Agency Cost',
                         data: [100, 100, 100, 100],
                         backgroundColor: '#d6d3d1',
-                        borderRadius: 4
+                        borderRadius: 8,
+                        borderWidth: 0
                     },
                     {
                         label: 'NODE.io Optimized',
-                        data: [60, 65, 55, 40], // Higher savings at scale due to AI
-                        backgroundColor: '#ea580c',
-                        borderRadius: 4
+                        data: [60, 65, 55, 40],
+                        backgroundColor: '#8855BB',
+                        borderRadius: 8,
+                        borderWidth: 0
                     }
                 ]
             };
@@ -660,15 +858,34 @@
                     scales: {
                         y: {
                             beginAtZero: true,
-                            title: { display: true, text: 'Cost Index (%)' },
-                            grid: { color: '#f5f5f4' }
+                            title: { 
+                                display: true, 
+                                text: 'Cost Index (%)',
+                                font: { weight: 'bold' }
+                            },
+                            grid: { color: '#F8F3FB' },
+                            ticks: { font: { size: 12 } }
                         },
                         x: {
-                            grid: { display: false }
+                            grid: { display: false },
+                            ticks: { font: { size: 12 } }
                         }
                     },
                     plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                padding: 15,
+                                font: { size: 13, weight: 'bold' },
+                                usePointStyle: true
+                            }
+                        },
                         tooltip: {
+                            backgroundColor: '#3D226E',
+                            padding: 12,
+                            titleFont: { size: 14 },
+                            bodyFont: { size: 13 },
                             callbacks: {
                                 label: function (context) {
                                     return context.dataset.label + ': ' + context.raw + '%';
@@ -679,7 +896,6 @@
                 }
             });
 
-            // Selector Logic
             document.getElementById('project-scale-selector').addEventListener('change', (e) => {
                 const newData = e.target.value === 'startup' ? dataStartup : dataEnterprise;
                 pricingChartInstance.data = newData;
@@ -701,7 +917,6 @@
                     behavior: "smooth"
                 });
             }
-            // Close mobile menu if open
             document.getElementById('mobile-menu').classList.add('hidden');
         }
 
@@ -711,7 +926,6 @@
             renderServices();
             initPricingChart();
 
-            // Mobile Menu Toggle
             document.getElementById('mobile-menu-btn').addEventListener('click', () => {
                 const menu = document.getElementById('mobile-menu');
                 menu.classList.toggle('hidden');
@@ -744,7 +958,7 @@
                 minWidth: 200.00,
                 scale: 1.00,
                 scaleMobile: 1.00,
-                color: 0xea580c,
+                color: 0x8855BB,
                 backgroundColor: 0xfafaf9,
                 points: 13.00,
                 maxDistance: 23.00,
