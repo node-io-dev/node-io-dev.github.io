@@ -208,14 +208,15 @@
         }
 
         .sub-services-container {
-            max-height: 0;
+            height: 0;
             overflow: hidden;
-            transition: max-height 0.4s ease-in-out;
+            transition: height 0.35s ease;
         }
 
         .sub-services-container.expanded {
-            max-height: 2000px;
+            height: auto;
         }
+
 
         main {
             width: 100%;
@@ -795,6 +796,7 @@
             
             // Open the clicked card
             activeServiceIndex = index;
+            subServicesContainer.style.height = subServicesContainer.scrollHeight + "px";
             subServicesContainer.classList.add('expanded');
             expandIcon.style.transform = 'rotate(180deg)';
             
@@ -812,9 +814,9 @@
             }
             
             // Smooth scroll to card
-            setTimeout(() => {
-                clickedCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }, 150);
+            // setTimeout(() => {
+            //     clickedCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            // }, 150);
         }
 
         // Reset states on window resize
