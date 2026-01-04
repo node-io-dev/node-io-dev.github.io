@@ -208,15 +208,14 @@
         }
 
         .sub-services-container {
-            height: 0;
+            max-height: 0;
             overflow: hidden;
-            transition: height 0.35s ease;
+            transition: max-height 0.4s ease-in-out;
         }
 
         .sub-services-container.expanded {
-            height: auto;
+            max-height: 2000px;
         }
-
 
         main {
             width: 100%;
@@ -228,6 +227,10 @@
             width: 100%;
             max-width: 100%;
             overflow-x: hidden;
+        }
+        
+        #services-grid {
+            width: 100%;
         }
     </style>
 </head>
@@ -365,7 +368,7 @@
         </section>
 
         <!-- SERVICES SECTION -->
-        <section id="services" class="py-16 md:py-20 bg-white">
+        <section id="services" class="py-16 md:py-20 bg-white overflow-hidden">
             <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12 md:mb-16" data-aos="fade-up">
                     <h2 class="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">The NODE.io Ecosystem</h2>
@@ -376,7 +379,7 @@
                     </p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" id="services-grid">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6" id="services-grid">
                     <!-- JS will populate this -->
                 </div>
             </div>
@@ -796,7 +799,6 @@
             
             // Open the clicked card
             activeServiceIndex = index;
-            subServicesContainer.style.height = subServicesContainer.scrollHeight + "px";
             subServicesContainer.classList.add('expanded');
             expandIcon.style.transform = 'rotate(180deg)';
             
@@ -814,9 +816,9 @@
             }
             
             // Smooth scroll to card
-            // setTimeout(() => {
-            //     clickedCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            // }, 150);
+            setTimeout(() => {
+                clickedCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 150);
         }
 
         // Reset states on window resize
