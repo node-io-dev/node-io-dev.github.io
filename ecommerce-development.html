@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Commerce Development - NODE.io Solutions</title>
+    <title>E-Commerce Development — NODE.io</title>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -14,17 +14,17 @@
                 extend: {
                     colors: {
                         'brand': {
-                            50: '#fafaf9',
-                            100: '#f5f5f4',
-                            200: '#e7e5e4',
-                            300: '#d6d3d1',
-                            400: '#a8a29e',
-                            500: '#78716c',
-                            600: '#57534e',
-                            700: '#44403c',
-                            800: '#292524',
-                            900: '#1c1917',
-                            'accent': '#ea580c'
+                            50: '#faf5ff',
+                            100: '#f3e8ff',
+                            200: '#e9d5ff',
+                            300: '#d8b4fe',
+                            400: '#c084fc',
+                            500: '#a855f7',
+                            600: '#9333ea',
+                            700: '#7e22ce',
+                            800: '#6b21a8',
+                            900: '#581c87',
+                            950: '#3b0764'
                         }
                     },
                     fontFamily: {
@@ -35,11 +35,13 @@
         }
     </script>
 
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- AOS Animation -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
         * {
@@ -48,430 +50,690 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
         body {
             font-family: 'Inter', system-ui, sans-serif;
+            overflow-x: hidden;
+            max-width: 100vw;
+            background: #ffffff;
+            color: #0f172a;
         }
 
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+        /* Navigation - Matching index.html */
+        .nav-glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(168, 85, 247, 0.1);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
         }
 
-        .package-card {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 2px solid transparent;
+        /* Hero Section - Optimized for viewport fit */
+        .hero-gradient {
+            background: linear-gradient(135deg, #faf5ff 0%, #ffffff 50%, #f3e8ff 100%);
             position: relative;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             overflow: hidden;
         }
 
-        .package-card::before {
-            content: '';
+        .hero-orb {
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(234, 88, 12, 0.1), transparent);
-            transition: left 0.5s;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            pointer-events: none;
         }
 
-        .package-card:hover::before {
-            left: 100%;
+        .hero-orb-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, #a855f7 0%, transparent 70%);
+            top: -150px;
+            right: -100px;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero-orb-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #c084fc 0%, transparent 70%);
+            bottom: -100px;
+            left: -100px;
+            animation: float 8s ease-in-out infinite;
+            animation-delay: 2s;
+        }
+
+        .hero-orb-3 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, #d8b4fe 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: float 8s ease-in-out infinite;
+            animation-delay: 1s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(20px, -20px); }
+        }
+
+        .hero-title {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #1e293b 0%, #581c87 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #a855f7 0%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Service Cards */
+        .service-card {
+            position: relative;
+            background: #ffffff;
+            border: 1px solid #e9d5ff;
+            border-radius: 24px;
+            padding: 32px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: visible;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 24px 48px rgba(168, 85, 247, 0.12);
+        }
+
+        .service-card.expanded {
+            grid-column: 1 / -1;
+        }
+
+        .service-details {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .service-card.expanded .service-details {
+            max-height: 1000px;
+            opacity: 1;
+            margin-top: 32px;
+        }
+
+        /* Popular Badge */
+        .popular-badge-wrapper {
+            position: absolute;
+            top: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 50;
+            pointer-events: none;
+        }
+
+        .popular-badge {
+            background: linear-gradient(135deg, #a855f7, #7e22ce);
+            color: white;
+            padding: 8px 24px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 16px rgba(168, 85, 247, 0.5);
+            white-space: nowrap;
+        }
+
+        /* Buttons - Fixed order and colors */
+        .btn-primary {
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+            color: white;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 15px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 16px rgba(168, 85, 247, 0.3);
+            display: inline-block;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(168, 85, 247, 0.4);
+        }
+
+        .btn-secondary {
+            padding: 14px 32px;
+            background: #0f172a;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-secondary:hover {
+            background: #1e293b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.3);
+        }
+
+        /* Package Cards */
+        .package-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: white;
+            position: relative;
         }
 
         .package-card:hover {
-            transform: translateY(-12px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(234, 88, 12, 0.2);
-            border-color: #ea580c;
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(168, 85, 247, 0.15);
         }
 
-        .feature-item {
+        .feature-check {
+            color: #10B981;
+            flex-shrink: 0;
+        }
+
+        .feature-uncheck {
+            color: #EF4444;
+            flex-shrink: 0;
+        }
+
+        /* Professional card elevation */
+        .professional-card {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Animations */
+        .stagger-item {
             opacity: 0;
-            animation: fadeInLeft 0.6s forwards;
+            animation: fadeInUp 0.6s ease-out forwards;
         }
 
-        .feature-item:nth-child(1) { animation-delay: 0.1s; }
-        .feature-item:nth-child(2) { animation-delay: 0.15s; }
-        .feature-item:nth-child(3) { animation-delay: 0.2s; }
-        .feature-item:nth-child(4) { animation-delay: 0.25s; }
-        .feature-item:nth-child(5) { animation-delay: 0.3s; }
-        .feature-item:nth-child(6) { animation-delay: 0.35s; }
-        .feature-item:nth-child(7) { animation-delay: 0.4s; }
-        .feature-item:nth-child(8) { animation-delay: 0.45s; }
-        .feature-item:nth-child(9) { animation-delay: 0.5s; }
-        .feature-item:nth-child(10) { animation-delay: 0.55s; }
+        .stagger-item:nth-child(1) { animation-delay: 0.1s; }
+        .stagger-item:nth-child(2) { animation-delay: 0.2s; }
+        .stagger-item:nth-child(3) { animation-delay: 0.3s; }
+        .stagger-item:nth-child(4) { animation-delay: 0.4s; }
+        .stagger-item:nth-child(5) { animation-delay: 0.5s; }
 
-        @keyframes fadeInLeft {
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            overflow-x: hidden;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #1c1917;
+            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+        }
+
+        @media (min-width: 768px) {
+            .professional-card {
+                transform: scale(1.05);
+            }
+
+            .professional-card:hover {
+                transform: scale(1.05) translateY(-8px);
+            }
+        }
+
+        @media (max-width: 767px) {
+            .popular-badge {
+                font-size: 11px;
+                padding: 6px 18px;
+            }
+
+            .professional-card {
+                margin-top: 2rem;
+                margin-bottom: 2rem;
+            }
+        }
+        
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateX(-20px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
-                transform: translateX(0);
+                transform: translateY(0);
             }
         }
 
-        .badge {
-            animation: pulse 2s infinite;
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            50% {
-                transform: scale(1.05);
-                opacity: 0.9;
-            }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .platform-icon {
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .platform-icon:hover {
-            transform: scale(1.15) rotate(-5deg);
-        }
-
-        .recommended-badge {
-            position: absolute;
-            top: -12px;
-            right: 20px;
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            padding: 6px 20px;
-            border-radius: 20px;
-            color: white;
-            font-size: 12px;
-            font-weight: bold;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-
-        .gradient-bg {
-            background: linear-gradient(135deg, #1c1917 0%, #292524 50%, #44403c 100%);
-        }
-
-        .ecom-gradient {
-            background: linear-gradient(135deg, #ea580c 0%, #dc2626 50%, #b91c1c 100%);
-        }
-
-        .section-divider {
-            height: 3px;
-            background: linear-gradient(to right, transparent, #ea580c, #dc2626, transparent);
-            margin: 60px auto;
-            max-width: 300px;
-        }
-
-        .stat-card {
+        /* Technology Logos */
+        .tech-logo-container {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 140px;
+            border: 1px solid #e9d5ff;
             transition: all 0.3s ease;
         }
 
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        .tech-logo-container:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.15);
+            border-color: #a855f7;
         }
 
-        .icon-bounce {
-            animation: iconBounce 2s infinite;
+        .tech-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
         }
 
-        @keyframes iconBounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        .tech-name {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #1e293b;
+            text-align: center;
         }
 
-        .shine-effect {
+        /* AI Section */
+        .ai-section {
+            background: #0f172a;
             position: relative;
             overflow: hidden;
         }
 
-        .shine-effect::after {
-            content: '';
+        .ai-grid {
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transform: rotate(45deg);
-            animation: shine 3s infinite;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(168, 85, 247, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(168, 85, 247, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.5;
         }
 
-        @keyframes shine {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        .ai-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 16px;
+            padding: 32px;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s;
+        }
+
+        .ai-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: #a855f7;
+            transform: translateY(-4px);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero-gradient {
+                min-height: 100vh;
+                padding: 0 1rem;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .service-card {
+                padding: 24px;
+            }
+
+            .btn-primary, .btn-secondary {
+                padding: 12px 24px;
+                font-size: 14px;
+            }
+
+            .tech-logo-container {
+                height: 120px;
+                padding: 1rem;
+            }
+
+            .tech-icon {
+                font-size: 2rem;
+            }
+            
+            .tech-name {
+                font-size: 0.75rem;
+            }
         }
     </style>
 </head>
 
-<body class="antialiased text-brand-800">
+<body>
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 glass-panel border-b border-brand-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Navigation - Matching index.html structure -->
+    <nav class="fixed top-0 left-0 right-0 w-full z-50 nav-glass">
+        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
-                <div class="flex-shrink-0 flex items-center gap-2">
+                <a href="index.html" class="flex-shrink-0 flex items-center gap-2">
                     <img src="logo.png" alt="NODE.io Logo" class="w-10 h-10 object-contain">
-                    <span class="font-display font-bold text-xl tracking-tight">NODE.io</span>
-                </div>
-                <div class="flex items-center space-x-6">
-                    <a href="/" class="text-sm font-medium hover:text-brand-accent transition-colors">
+                    <span class="font-display font-bold text-xl tracking-tight text-gray-900">NODE.io</span>
+                </a>
+                
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="index.html" class="text-sm font-medium text-slate-700 hover:text-purple-600 transition-colors">
                         <i class="fa-solid fa-arrow-left mr-2"></i>Back to Home
                     </a>
-                    <a href="#contact" class="px-6 py-2 bg-brand-accent text-white rounded-lg font-bold hover:bg-orange-700 transition-colors">
+                    <a href="#contact" class="btn-primary" style="padding: 10px 24px; font-size: 14px;">
                         Get a Quote
                     </a>
                 </div>
+                
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-900 p-2" aria-label="Toggle menu">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu - Matching index.html -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-sm border-t border-purple-100 p-4">
+            <div class="flex flex-col space-y-3">
+                <a href="index.html" class="text-left font-medium py-2 hover:text-purple-600 transition-colors">
+                    <i class="fa-solid fa-arrow-left mr-2"></i>Back to Home
+                </a>
+                <a href="#packages" class="text-left font-medium py-2 hover:text-purple-600 transition-colors">View Packages</a>
+                <a href="#platforms" class="text-left font-medium py-2 hover:text-purple-600 transition-colors">Platforms</a>
+                <a href="#features" class="text-left font-medium py-2 hover:text-purple-600 transition-colors">Features</a>
+                <a href="#contact" class="text-left font-medium py-2 hover:text-purple-600 transition-colors">Get a Quote</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="pt-32 pb-20 ecom-gradient text-white relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10">
-            <div class="absolute top-20 left-20 w-72 h-72 bg-yellow-400 rounded-full blur-3xl"></div>
-            <div class="absolute bottom-20 right-20 w-96 h-96 bg-orange-500 rounded-full blur-3xl"></div>
-            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-red-500 rounded-full blur-3xl"></div>
-        </div>
-        
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center" data-aos="fade-down">
-                <div class="inline-block mb-6">
-                    <span class="inline-block py-2 px-4 rounded-full bg-white/20 border border-white/40 text-white text-sm font-bold tracking-wider badge">
-                        <i class="fa-solid fa-shopping-cart mr-2"></i>E-COMMERCE SOLUTIONS
-                    </span>
+    <!-- Hero Section - Optimized -->
+    <section class="hero-gradient pt-20">
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="hero-orb hero-orb-3"></div>
+
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-purple-200 shadow-sm mb-6 stagger-item">
+                <div class="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></div>
+                <span class="text-sm font-semibold text-purple-700">Professional E-Commerce</span>
+            </div>
+
+            <h1 class="hero-title mb-5 stagger-item">
+                Launch Your Online Store<br/>
+                <span class="gradient-text">Start Selling Today</span>
+            </h1>
+
+            <p class="text-lg md:text-xl text-slate-600 mb-8 max-w-2xl mx-auto leading-relaxed stagger-item">
+                From simple product catalogs to complex multi-vendor marketplaces, we build e-commerce platforms that drive sales and scale with your business.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8 stagger-item">
+                <a href="#packages" class="btn-primary">
+                    View Packages
+                    <i class="fa-solid fa-arrow-right ml-2"></i>
+                </a>
+                <a href="index.html" class="btn-secondary">
+                    <i class="fa-solid fa-arrow-left mr-2"></i>
+                    Back to Services
+                </a>
+            </div>
+
+            <div class="flex flex-wrap gap-6 justify-center stagger-item">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-check-circle text-purple-500 text-lg"></i>
+                    <span class="text-sm font-medium text-slate-700">Secure Payments</span>
                 </div>
-                <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-                    Launch Your Online Store<br/>
-                    <span class="text-yellow-300">Start Selling Today</span>
-                </h1>
-                <p class="text-xl text-white/90 max-w-3xl mx-auto mb-8">
-                    From simple product catalogs to complex multi-vendor marketplaces, we build e-commerce platforms that drive sales and scale with your business.
-                </p>
-                <div class="flex justify-center gap-4 flex-wrap">
-                    <div class="flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-lg shine-effect">
-                        <i class="fa-solid fa-lock text-green-300"></i>
-                        <span class="text-sm">Secure Payments</span>
-                    </div>
-                    <div class="flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-lg shine-effect">
-                        <i class="fa-solid fa-mobile-screen text-blue-300"></i>
-                        <span class="text-sm">Mobile Optimized</span>
-                    </div>
-                    <div class="flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-lg shine-effect">
-                        <i class="fa-solid fa-chart-line text-yellow-300"></i>
-                        <span class="text-sm">Sales Analytics</span>
-                    </div>
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-check-circle text-purple-500 text-lg"></i>
+                    <span class="text-sm font-medium text-slate-700">Mobile Optimized</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-check-circle text-purple-500 text-lg"></i>
+                    <span class="text-sm font-medium text-slate-700">Sales Analytics</span>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Stats Section -->
-    <section class="py-16 bg-white border-b border-brand-100">
+    <section class="py-12 bg-gradient-to-r from-purple-50 to-pink-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="text-4xl font-bold text-brand-accent mb-2">99.9%</div>
-                    <div class="text-sm text-brand-600">Uptime Guarantee</div>
+                <div class="p-6 rounded-xl bg-white shadow-sm border border-purple-100 reveal" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-3xl font-bold text-purple-600 mb-2">99.9%</div>
+                    <div class="text-sm text-slate-600">Uptime Guarantee</div>
                 </div>
-                <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="text-4xl font-bold text-brand-accent mb-2">24/7</div>
-                    <div class="text-sm text-brand-600">Customer Support</div>
+                <div class="p-6 rounded-xl bg-white shadow-sm border border-purple-100 reveal" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-3xl font-bold text-purple-600 mb-2">24/7</div>
+                    <div class="text-sm text-slate-600">Customer Support</div>
                 </div>
-                <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="text-4xl font-bold text-brand-accent mb-2">SSL</div>
-                    <div class="text-sm text-brand-600">Encryption</div>
+                <div class="p-6 rounded-xl bg-white shadow-sm border border-purple-100 reveal" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-3xl font-bold text-purple-600 mb-2">SSL</div>
+                    <div class="text-sm text-slate-600">Encryption</div>
                 </div>
-                <div class="stat-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="text-4xl font-bold text-brand-accent mb-2">50+</div>
-                    <div class="text-sm text-brand-600">Payment Gateways</div>
+                <div class="p-6 rounded-xl bg-white shadow-sm border border-purple-100 reveal" data-aos="fade-up" data-aos-delay="400">
+                    <div class="text-3xl font-bold text-purple-600 mb-2">50+</div>
+                    <div class="text-sm text-slate-600">Payment Gateways</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Package Cards Section -->
-    <section class="py-20 bg-brand-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-4xl font-bold text-brand-900 mb-4">E-Commerce Packages</h2>
-                <p class="text-brand-600 max-w-2xl mx-auto">
+    <!-- PACKAGES SECTION -->
+    <section id="packages" class="py-16 md:py-20 bg-white">
+        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 md:mb-20" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">E-Commerce Packages</h2>
+                <p class="mt-4 text-gray-600 text-base md:text-lg max-w-2xl mx-auto leading-relaxed px-4">
                     Choose the perfect e-commerce solution for your business. All packages include mobile-responsive design and secure payment integration.
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-start">
                 
                 <!-- Basic Store Package -->
-                <div class="package-card bg-white rounded-2xl p-8 shadow-lg relative" data-aos="fade-up" data-aos-delay="100">
-                    <div class="mb-6">
-                        <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center text-white text-2xl mb-4 icon-bounce">
-                            <i class="fa-solid fa-store"></i>
+                <div class="package-card rounded-2xl shadow-lg border border-purple-100 overflow-hidden flex flex-col" data-aos="fade-up" data-aos-delay="100">
+                    <div class="p-6 md:p-8 bg-gradient-to-r from-purple-50 to-pink-50">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <span class="text-xs font-bold text-purple-700 uppercase tracking-wider">Perfect for Startups</span>
+                                <h3 class="text-2xl font-bold text-gray-900 mt-1">Basic Store</h3>
+                            </div>
                         </div>
-                        <h3 class="text-2xl font-bold text-brand-900 mb-2">Basic Store</h3>
-                        <p class="text-brand-600 text-sm">Perfect for small businesses starting online</p>
+                        <p class="text-sm text-gray-600 mt-4">Perfect for small businesses starting online</p>
                     </div>
-
-                    <div class="space-y-3 mb-8">
-                        <div class="feature-item flex items-start gap-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Up to 50 products</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">WooCommerce or Shopify integration</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Payment gateway setup (Stripe/PayPal)</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Shopping cart & checkout</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Basic inventory management</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Order tracking system</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Mobile responsive design</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">1 month support & maintenance</span>
-                        </div>
+                    
+                    <div class="p-6 md:p-8 flex-grow">
+                        <h4 class="font-bold text-gray-900 mb-4 text-base md:text-lg">What's Included:</h4>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Up to 50 products</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">WooCommerce or Shopify integration</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Payment gateway setup</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Shopping cart & checkout</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Basic inventory management</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Order tracking system</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Mobile responsive design</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">1 month support & maintenance</span>
+                            </li>
+                        </ul>
+                        
+                        <a href="#contact" class="w-full py-3 md:py-4 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 hover:shadow-lg hover:scale-105 transition-all block text-center text-sm md:text-base">
+                            Get Quote
+                        </a>
                     </div>
-
-                    <a href="#contact" class="block w-full py-3 bg-brand-800 text-white text-center rounded-lg font-bold hover:bg-brand-700 transition-colors">
-                        Request Quote
-                    </a>
                 </div>
 
-                <!-- Professional Store Package -->
-                <div class="package-card bg-white rounded-2xl p-8 shadow-lg relative" data-aos="fade-up" data-aos-delay="200">
-                    <span class="recommended-badge">RECOMMENDED</span>
+                <!-- Professional Store Package (Most Popular - Elevated) -->
+                <div class="package-card professional-card rounded-2xl shadow-xl border-2 border-purple-500 flex flex-col" data-aos="fade-up" data-aos-delay="200">
+                    <div class="popular-badge-wrapper">
+                        <div class="popular-badge">
+                            MOST POPULAR
+                        </div>
+                    </div>
                     
-                    <div class="mb-6">
-                        <div class="w-16 h-16 bg-gradient-to-br from-orange-400 to-orange-600 rounded-xl flex items-center justify-center text-white text-2xl mb-4 icon-bounce" style="animation-delay: 0.2s;">
-                            <i class="fa-solid fa-cart-shopping"></i>
+                    <div class="p-6 md:p-8 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-t-2xl">
+                        <div>
+                            <h3 class="text-2xl font-bold text-white">Professional Store</h3>
                         </div>
-                        <h3 class="text-2xl font-bold text-brand-900 mb-2">Professional Store</h3>
-                        <p class="text-brand-600 text-sm">Ideal for growing online businesses</p>
+                        <p class="text-sm text-white/90 mt-4">Ideal for growing online businesses</p>
                     </div>
-
-                    <div class="space-y-3 mb-8">
-                        <div class="feature-item flex items-start gap-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Up to 200 products</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Custom e-commerce design</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Multiple payment gateways</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Advanced inventory management</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Product variations & categories</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Customer reviews & ratings</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Email marketing integration</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Sales analytics dashboard</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">3 months support & maintenance</span>
-                        </div>
+                    
+                    <div class="p-6 md:p-8 flex-grow">
+                        <h4 class="font-bold text-gray-900 mb-4 text-base md:text-lg">What's Included:</h4>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Up to 200 products</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Custom e-commerce design</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Multiple payment gateways</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Advanced inventory management</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Product variations & categories</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Customer reviews & ratings</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Email marketing integration</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">3 months support & maintenance</span>
+                            </li>
+                        </ul>
+                        
+                        <a href="#contact" class="w-full py-3 md:py-4 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 hover:shadow-lg hover:scale-105 transition-all block text-center text-sm md:text-base">
+                            Get Quote
+                        </a>
                     </div>
-
-                    <a href="#contact" class="block w-full py-3 bg-brand-accent text-white text-center rounded-lg font-bold hover:bg-orange-700 transition-colors">
-                        Request Quote
-                    </a>
                 </div>
 
                 <!-- Enterprise Store Package -->
-                <div class="package-card bg-white rounded-2xl p-8 shadow-lg relative" data-aos="fade-up" data-aos-delay="300">
-                    <div class="mb-6">
-                        <div class="w-16 h-16 bg-gradient-to-br from-purple-400 to-purple-600 rounded-xl flex items-center justify-center text-white text-2xl mb-4 icon-bounce" style="animation-delay: 0.4s;">
-                            <i class="fa-solid fa-building"></i>
+                <div class="package-card rounded-2xl shadow-lg border border-purple-100 overflow-hidden flex flex-col" data-aos="fade-up" data-aos-delay="300">
+                    <div class="p-6 md:p-8 bg-gradient-to-r from-pink-50 to-purple-50">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-900">Enterprise Store</h3>
                         </div>
-                        <h3 class="text-2xl font-bold text-brand-900 mb-2">Enterprise Store</h3>
-                        <p class="text-brand-600 text-sm">For large-scale e-commerce operations</p>
+                        <p class="text-sm text-gray-600 mt-4">For large-scale e-commerce operations</p>
                     </div>
-
-                    <div class="space-y-3 mb-8">
-                        <div class="feature-item flex items-start gap-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Unlimited products</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Custom marketplace/multi-vendor</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Advanced security features</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">API integration & automation</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Subscription/recurring payments</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Multi-currency & multi-language</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Custom shipping integrations</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Advanced analytics & reporting</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">6 months priority support</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Dedicated account manager</span>
-                        </div>
+                    
+                    <div class="p-6 md:p-8 flex-grow">
+                        <h4 class="font-bold text-gray-900 mb-4 text-base md:text-lg">What's Included:</h4>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Unlimited products</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Custom marketplace/multi-vendor</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Advanced security features</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">API integration & automation</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Subscription/recurring payments</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Multi-currency & multi-language</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Custom shipping integrations</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">6 months priority support</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Dedicated account manager</span>
+                            </li>
+                        </ul>
+                        
+                        <a href="#contact" class="w-full py-3 md:py-4 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 hover:shadow-lg hover:scale-105 transition-all block text-center text-sm md:text-base">
+                            Get Quote
+                        </a>
                     </div>
-
-                    <a href="#contact" class="block w-full py-3 bg-brand-800 text-white text-center rounded-lg font-bold hover:bg-brand-700 transition-colors">
-                        Request Quote
-                    </a>
                 </div>
 
             </div>
@@ -479,242 +741,373 @@
     </section>
 
     <!-- Platforms Section -->
-    <section class="py-20 bg-white">
+    <section id="platforms" class="py-16 md:py-20 bg-gradient-to-b from-white to-purple-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-4xl font-bold text-brand-900 mb-4">E-Commerce Platforms We Work With</h2>
-                <p class="text-brand-600 max-w-2xl mx-auto">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+                    E-Commerce Platforms <span class="gradient-text">We Work With</span>
+                </h2>
+                <p class="text-lg text-slate-600 max-w-3xl mx-auto">
                     We specialize in multiple e-commerce platforms to give you the best solution for your needs.
                 </p>
             </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                <div class="platform-icon p-8 bg-brand-50 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="100">
-                    <i class="fa-brands fa-shopify text-6xl text-green-600 mb-4"></i>
-                    <p class="text-sm font-semibold text-brand-700">Shopify</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                <div class="tech-logo-container reveal">
+                    <i class="fa-brands fa-shopify tech-icon text-green-600"></i>
+                    <span class="tech-name">Shopify</span>
                 </div>
-                <div class="platform-icon p-8 bg-brand-50 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="150">
-                    <i class="fa-brands fa-wordpress text-6xl text-blue-600 mb-4"></i>
-                    <p class="text-sm font-semibold text-brand-700">WooCommerce</p>
+                <div class="tech-logo-container reveal">
+                    <i class="fa-brands fa-wordpress tech-icon text-blue-600"></i>
+                    <span class="tech-name">WooCommerce</span>
                 </div>
-                <div class="platform-icon p-8 bg-brand-50 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="200">
-                    <i class="fa-brands fa-magento text-6xl text-orange-600 mb-4"></i>
-                    <p class="text-sm font-semibold text-brand-700">Magento</p>
+                <div class="tech-logo-container reveal">
+                    <i class="fa-brands fa-magento tech-icon text-orange-600"></i>
+                    <span class="tech-name">Magento</span>
                 </div>
-                <div class="platform-icon p-8 bg-brand-50 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="250">
-                    <i class="fa-solid fa-code text-6xl text-purple-600 mb-4"></i>
-                    <p class="text-sm font-semibold text-brand-700">Custom Built</p>
+                <div class="tech-logo-container reveal">
+                    <i class="fa-solid fa-code tech-icon text-purple-600"></i>
+                    <span class="tech-name">Custom Built</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <div class="section-divider"></div>
-
     <!-- Features Section -->
-    <section class="py-20 bg-brand-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-4xl font-bold text-brand-900 mb-4">Powerful E-Commerce Features</h2>
-                <p class="text-brand-600 max-w-2xl mx-auto">
+    <section id="features" class="ai-section py-16 md:py-20 relative">
+        <div class="ai-grid"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+                    Powerful <span class="gradient-text" style="text-shadow: 0 0 20px rgba(168, 85, 247, 0.8);">E-Commerce Features</span>
+                </h2>
+                <p class="text-lg text-slate-400 max-w-3xl mx-auto">
                     Every store we build comes equipped with essential features to maximize your online sales.
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all" data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 mb-4">
-                        <i class="fa-solid fa-credit-card text-xl"></i>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <div class="ai-card reveal">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-xl mb-4">
+                        <i class="fa-solid fa-credit-card"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-brand-900 mb-2">Secure Payment Processing</h3>
-                    <p class="text-sm text-brand-600">Accept credit cards, PayPal, and local payment methods with PCI-compliant security.</p>
+                    <h3 class="text-xl font-bold text-white mb-3">Secure Payment Processing</h3>
+                    <p class="text-slate-400 leading-relaxed text-sm">
+                        Accept credit cards, PayPal, and local payment methods with PCI-compliant security.
+                    </p>
                 </div>
 
-                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all" data-aos="fade-up" data-aos-delay="150">
-                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center text-green-600 mb-4">
-                        <i class="fa-solid fa-boxes-stacked text-xl"></i>
+                <div class="ai-card reveal">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-xl mb-4">
+                        <i class="fa-solid fa-boxes-stacked"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-brand-900 mb-2">Inventory Management</h3>
-                    <p class="text-sm text-brand-600">Track stock levels, get low-stock alerts, and manage products effortlessly.</p>
+                    <h3 class="text-xl font-bold text-white mb-3">Inventory Management</h3>
+                    <p class="text-slate-400 leading-relaxed text-sm">
+                        Track stock levels, get low-stock alerts, and manage products effortlessly.
+                    </p>
                 </div>
 
-                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600 mb-4">
-                        <i class="fa-solid fa-truck text-xl"></i>
+                <div class="ai-card reveal">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-xl mb-4">
+                        <i class="fa-solid fa-truck"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-brand-900 mb-2">Shipping Integration</h3>
-                    <p class="text-sm text-brand-600">Connect with major shipping carriers for real-time rates and tracking.</p>
+                    <h3 class="text-xl font-bold text-white mb-3">Shipping Integration</h3>
+                    <p class="text-slate-400 leading-relaxed text-sm">
+                        Connect with major shipping carriers for real-time rates and tracking.
+                    </p>
                 </div>
 
-                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all" data-aos="fade-up" data-aos-delay="250">
-                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center text-orange-600 mb-4">
-                        <i class="fa-solid fa-percent text-xl"></i>
+                <div class="ai-card reveal">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-xl mb-4">
+                        <i class="fa-solid fa-percent"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-brand-900 mb-2">Discounts & Promotions</h3>
-                    <p class="text-sm text-brand-600">Create coupon codes, run sales campaigns, and offer special deals.</p>
+                    <h3 class="text-xl font-bold text-white mb-3">Discounts & Promotions</h3>
+                    <p class="text-slate-400 leading-relaxed text-sm">
+                        Create coupon codes, run sales campaigns, and offer special deals.
+                    </p>
                 </div>
 
-                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all" data-aos="fade-up" data-aos-delay="300">
-                    <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center text-red-600 mb-4">
-                        <i class="fa-solid fa-star text-xl"></i>
+                <div class="ai-card reveal">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-xl mb-4">
+                        <i class="fa-solid fa-star"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-brand-900 mb-2">Customer Reviews</h3>
-                    <p class="text-sm text-brand-600">Build trust with product reviews, ratings, and customer testimonials.</p>
+                    <h3 class="text-xl font-bold text-white mb-3">Customer Reviews</h3>
+                    <p class="text-slate-400 leading-relaxed text-sm">
+                        Build trust with product reviews, ratings, and customer testimonials.
+                    </p>
                 </div>
 
-                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all" data-aos="fade-up" data-aos-delay="350">
-                    <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center text-yellow-600 mb-4">
-                        <i class="fa-solid fa-chart-pie text-xl"></i>
+                <div class="ai-card reveal">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-xl mb-4">
+                        <i class="fa-solid fa-chart-pie"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-brand-900 mb-2">Sales Analytics</h3>
-                    <p class="text-sm text-brand-600">Detailed reports on sales, customers, and product performance.</p>
+                    <h3 class="text-xl font-bold text-white mb-3">Sales Analytics</h3>
+                    <p class="text-slate-400 leading-relaxed text-sm">
+                        Detailed reports on sales, customers, and product performance.
+                    </p>
                 </div>
 
-                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all" data-aos="fade-up" data-aos-delay="400">
-                    <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-600 mb-4">
-                        <i class="fa-solid fa-mobile-screen-button text-xl"></i>
+                <div class="ai-card reveal">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-xl mb-4">
+                        <i class="fa-solid fa-mobile-screen-button"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-brand-900 mb-2">Mobile Responsive</h3>
-                    <p class="text-sm text-brand-600">Perfect shopping experience on all devices - desktop, tablet, and mobile.</p>
+                    <h3 class="text-xl font-bold text-white mb-3">Mobile Responsive</h3>
+                    <p class="text-slate-400 leading-relaxed text-sm">
+                        Perfect shopping experience on all devices - desktop, tablet, and mobile.
+                    </p>
                 </div>
 
-                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all" data-aos="fade-up" data-aos-delay="450">
-                    <div class="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center text-pink-600 mb-4">
-                        <i class="fa-solid fa-envelope text-xl"></i>
+                <div class="ai-card reveal">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-xl mb-4">
+                        <i class="fa-solid fa-envelope"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-brand-900 mb-2">Email Marketing</h3>
-                    <p class="text-sm text-brand-600">Send automated emails for abandoned carts, order updates, and promotions.</p>
+                    <h3 class="text-xl font-bold text-white mb-3">Email Marketing</h3>
+                    <p class="text-slate-400 leading-relaxed text-sm">
+                        Send automated emails for abandoned carts, order updates, and promotions.
+                    </p>
                 </div>
 
-                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all" data-aos="fade-up" data-aos-delay="500">
-                    <div class="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center text-teal-600 mb-4">
-                        <i class="fa-solid fa-search text-xl"></i>
+                <div class="ai-card reveal">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-xl mb-4">
+                        <i class="fa-solid fa-search"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-brand-900 mb-2">SEO Optimization</h3>
-                    <p class="text-sm text-brand-600">Rank higher on Google with optimized product pages and meta tags.</p>
+                    <h3 class="text-xl font-bold text-white mb-3">SEO Optimization</h3>
+                    <p class="text-slate-400 leading-relaxed text-sm">
+                        Rank higher on Google with optimized product pages and meta tags.
+                    </p>
                 </div>
+
             </div>
         </div>
     </section>
 
     <!-- Process Section -->
-    <section class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-4xl font-bold text-brand-900 mb-4">Our E-Commerce Development Process</h2>
-                <p class="text-brand-600 max-w-2xl mx-auto">
+    <section id="process" class="py-16 md:py-20 bg-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+                    Our E-Commerce Development <span class="gradient-text">Process</span>
+                </h2>
+                <p class="text-lg text-slate-600 max-w-3xl mx-auto">
                     From concept to launch, we guide you through every step of building your online store.
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-                <div class="text-center" data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-20 h-20 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
+            <div class="space-y-8">
+                
+                <div class="flex items-start gap-6 p-6 rounded-2xl bg-purple-50 border border-purple-100 reveal">
+                    <div class="w-12 h-12 flex-shrink-0 rounded-xl bg-purple-600 text-white flex items-center justify-center text-xl font-bold">
                         1
                     </div>
-                    <h3 class="text-lg font-bold text-brand-900 mb-2">Planning</h3>
-                    <p class="text-sm text-brand-600">Define goals, products, and target audience for your store.</p>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Planning & Discovery</h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            Define goals, products, target audience, and platform selection for your e-commerce store.
+                        </p>
+                    </div>
                 </div>
 
-                <div class="text-center" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
+                <div class="flex items-start gap-6 p-6 rounded-2xl bg-pink-50 border border-pink-100 reveal">
+                    <div class="w-12 h-12 flex-shrink-0 rounded-xl bg-pink-600 text-white flex items-center justify-center text-xl font-bold">
                         2
                     </div>
-                    <h3 class="text-lg font-bold text-brand-900 mb-2">Design</h3>
-                    <p class="text-sm text-brand-600">Create a stunning, conversion-focused store design.</p>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Design & UI/UX</h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            Create a stunning, conversion-focused store design with seamless user experience.
+                        </p>
+                    </div>
                 </div>
 
-                <div class="text-center" data-aos="fade-up" data-aos-delay="300">
-                    <div class="w-20 h-20 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
+                <div class="flex items-start gap-6 p-6 rounded-2xl bg-indigo-50 border border-indigo-100 reveal">
+                    <div class="w-12 h-12 flex-shrink-0 rounded-xl bg-indigo-600 text-white flex items-center justify-center text-xl font-bold">
                         3
                     </div>
-                    <h3 class="text-lg font-bold text-brand-900 mb-2">Development</h3>
-                    <p class="text-sm text-brand-600">Build your store with secure payment and inventory systems.</p>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Development & Integration</h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            Build your store with secure payment gateways, inventory systems, and essential integrations.
+                        </p>
+                    </div>
                 </div>
 
-                <div class="text-center" data-aos="fade-up" data-aos-delay="400">
-                    <div class="w-20 h-20 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
+                <div class="flex items-start gap-6 p-6 rounded-2xl bg-blue-50 border border-blue-100 reveal">
+                    <div class="w-12 h-12 flex-shrink-0 rounded-xl bg-blue-600 text-white flex items-center justify-center text-xl font-bold">
                         4
                     </div>
-                    <h3 class="text-lg font-bold text-brand-900 mb-2">Testing</h3>
-                    <p class="text-sm text-brand-600">Thorough testing of checkout, payments, and user experience.</p>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Testing & Launch</h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            Thorough testing of checkout, payments, and user experience before launching your store.
+                        </p>
+                    </div>
                 </div>
 
-                <div class="text-center" data-aos="fade-up" data-aos-delay="500">
-                    <div class="w-20 h-20 bg-gradient-to-br from-red-400 to-red-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
-                        5
-                    </div>
-                    <h3 class="text-lg font-bold text-brand-900 mb-2">Launch</h3>
-                    <p class="text-sm text-brand-600">Go live and start selling with ongoing support.</p>
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section id="contact" class="py-20 gradient-bg text-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-aos="fade-up">
-            <div class="mb-8">
-                <i class="fa-solid fa-rocket text-6xl text-brand-accent mb-4"></i>
-            </div>
-            <h2 class="text-4xl font-bold mb-6">Ready to Launch Your Online Store?</h2>
-            <p class="text-xl text-brand-300 mb-8 max-w-2xl mx-auto">
-                Get a custom quote tailored to your business needs. Our team will help you choose the right package and features.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="mailto:ionode25@gmail.com" class="px-8 py-4 bg-brand-accent text-white rounded-lg font-bold hover:bg-orange-700 transition-all transform hover:-translate-y-1 shadow-lg">
-                    <i class="fa-solid fa-envelope mr-2"></i>Get a Quote
-                </a>
-                <a href="/" class="px-8 py-4 bg-white text-brand-900 rounded-lg font-bold hover:bg-brand-50 transition-all">
-                    <i class="fa-solid fa-arrow-left mr-2"></i>Back to Services
-                </a>
-            </div>
-            
-            <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-                <div class="bg-white/10 backdrop-blur p-6 rounded-xl">
-                    <i class="fa-solid fa-headset text-3xl text-brand-accent mb-3"></i>
-                    <h4 class="font-bold mb-2">Free Consultation</h4>
-                    <p class="text-sm text-brand-300">Discuss your project with our experts</p>
-                </div>
-                <div class="bg-white/10 backdrop-blur p-6 rounded-xl">
-                    <i class="fa-solid fa-clock text-3xl text-brand-accent mb-3"></i>
-                    <h4 class="font-bold mb-2">Quick Turnaround</h4>
-                    <p class="text-sm text-brand-300">Launch your store in 2-6 weeks</p>
-                </div>
-                <div class="bg-white/10 backdrop-blur p-6 rounded-xl">
-                    <i class="fa-solid fa-shield text-3xl text-brand-accent mb-3"></i>
-                    <h4 class="font-bold mb-2">Secure & Reliable</h4>
-                    <p class="text-sm text-brand-300">Bank-level security for your store</p>
-                </div>
+    <!-- Contact Section -->
+    <section id="contact" class="ai-section py-16 md:py-20 relative">
+        <div class="ai-grid"></div>
+        
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+                    Ready to <span class="gradient-text" style="text-shadow: 0 0 20px rgba(168, 85, 247, 0.8);">Launch Your Online Store?</span>
+                </h2>
+                <p class="text-lg text-slate-400 max-w-3xl mx-auto">
+                    Get a custom quote tailored to your business needs. Our team will help you choose the right package and features.
+                </p>
             </div>
 
-            <div class="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6">
-                <div class="flex items-center gap-3">
-                    <i class="fa-solid fa-location-dot text-brand-accent text-xl"></i>
-                    <span>Colombo, Sri Lanka</span>
+            <div class="text-center reveal">
+                <div class="flex flex-col sm:flex-row gap-4 justify-center mb-10">
+                    <a href="mailto:ionode25@gmail.com" class="btn-primary text-center">
+                        <i class="fa-solid fa-envelope mr-2"></i>
+                        Get a Quote Now
+                    </a>
+                    <a href="index.html" class="btn-secondary text-center">
+                        <i class="fa-solid fa-arrow-left mr-2"></i>
+                        Back to All Services
+                    </a>
                 </div>
-                <div class="flex items-center gap-3">
-                    <i class="fa-solid fa-envelope text-brand-accent text-xl"></i>
-                    <span>ionode25@gmail.com</span>
+
+                <div class="grid md:grid-cols-3 gap-6 max-w-2xl mx-auto">
+                    <div class="flex items-center justify-center gap-3 p-5 bg-white/5 rounded-xl backdrop-blur border border-white/10">
+                        <i class="fa-solid fa-headset text-purple-400 text-2xl"></i>
+                        <div class="text-left">
+                            <p class="text-slate-400 text-sm">Free Consultation</p>
+                            <p class="text-white font-semibold text-sm">Discuss your project</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-center gap-3 p-5 bg-white/5 rounded-xl backdrop-blur border border-white/10">
+                        <i class="fa-solid fa-clock text-purple-400 text-2xl"></i>
+                        <div class="text-left">
+                            <p class="text-slate-400 text-sm">Quick Turnaround</p>
+                            <p class="text-white font-semibold text-sm">2-6 weeks launch</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-center gap-3 p-5 bg-white/5 rounded-xl backdrop-blur border border-white/10">
+                        <i class="fa-solid fa-shield text-purple-400 text-2xl"></i>
+                        <div class="text-left">
+                            <p class="text-slate-400 text-sm">Secure & Reliable</p>
+                            <p class="text-white font-semibold text-sm">Bank-level security</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+                    <div class="flex items-center justify-center gap-3 p-5 bg-white/5 rounded-xl backdrop-blur border border-white/10">
+                        <i class="fa-solid fa-envelope text-purple-400 text-2xl"></i>
+                        <div class="text-left">
+                            <p class="text-slate-400 text-sm">Email</p>
+                            <a href="mailto:ionode25@gmail.com" class="text-white font-semibold hover:text-purple-400 transition-colors text-sm">
+                                ionode25@gmail.com
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-center gap-3 p-5 bg-white/5 rounded-xl backdrop-blur border border-white/10">
+                        <i class="fa-solid fa-location-dot text-purple-400 text-2xl"></i>
+                        <div class="text-left">
+                            <p class="text-slate-400 text-sm">Location</p>
+                            <p class="text-white font-semibold text-sm">Colombo, Sri Lanka</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-brand-900 text-white py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-brand-400">© 2025 NODE.io Solutions. All rights reserved.</p>
+    <footer class="bg-slate-900 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <a href="index.html" class="flex-shrink-0 flex items-center gap-2">
+                    <img src="logo-white.png" alt="NODE.io Logo" class="w-10 h-10 object-contain">
+                    <span class="font-display font-bold text-xl tracking-tight text-gray-100">NODE.io</span>
+                </a>
+
+                <p class="text-slate-400 text-sm text-center">
+                    © 2025 NODE.io. Crafted for commerce.
+                </p>
+
+                <div class="flex items-center gap-3">
+                    <a href="mailto:ionode25@gmail.com" class="w-9 h-9 rounded-lg bg-slate-800 flex items-center justify-center text-slate-400 hover:text-purple-400 hover:bg-slate-700 transition-all">
+                        <i class="fa-solid fa-envelope"></i>
+                    </a>
+                    <a href="https://www.instagram.com/node.io_/" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-lg bg-slate-800 flex items-center justify-center text-slate-400 hover:text-purple-400 hover:bg-slate-700 transition-all">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=61583529369023" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-lg bg-slate-800 flex items-center justify-center text-slate-400 hover:text-purple-400 hover:bg-slate-700 transition-all">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@node_io" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-lg bg-slate-800 flex items-center justify-center text-slate-400 hover:text-purple-400 hover:bg-slate-700 transition-all">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                </div>
+            </div>
         </div>
     </footer>
 
-    <!-- AOS Script -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({
-            duration: 800,
-            once: true,
-            offset: 100
+        // Mobile Menu Toggle - Matching index.html
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Scroll Reveal Animation
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealOnScroll = () => {
+            revealElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight * 0.85) {
+                    element.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // Smooth Scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerOffset = 80;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                }
+            });
+        });
+
+        // Navigation Shadow on Scroll
+        const nav = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.style.boxShadow = '0 4px 24px rgba(0, 0, 0, 0.08)';
+            } else {
+                nav.style.boxShadow = '0 4px 24px rgba(0, 0, 0, 0.04)';
+            }
         });
     </script>
 

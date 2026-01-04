@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI & Automation Services - NODE.io Solutions</title>
+    <title>AI & Automation Services — NODE.io</title>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -14,17 +14,17 @@
                 extend: {
                     colors: {
                         'brand': {
-                            50: '#fafaf9',
-                            100: '#f5f5f4',
-                            200: '#e7e5e4',
-                            300: '#d6d3d1',
-                            400: '#a8a29e',
-                            500: '#78716c',
-                            600: '#57534e',
-                            700: '#44403c',
-                            800: '#292524',
-                            900: '#1c1917',
-                            'accent': '#ea580c'
+                            50: '#faf5ff',
+                            100: '#f3e8ff',
+                            200: '#e9d5ff',
+                            300: '#d8b4fe',
+                            400: '#c084fc',
+                            500: '#a855f7',
+                            600: '#9333ea',
+                            700: '#7e22ce',
+                            800: '#6b21a8',
+                            900: '#581c87',
+                            950: '#3b0764'
                         }
                     },
                     fontFamily: {
@@ -35,11 +35,13 @@
         }
     </script>
 
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- AOS Animation -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
         * {
@@ -48,477 +50,678 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
         body {
             font-family: 'Inter', system-ui, sans-serif;
+            overflow-x: hidden;
+            max-width: 100vw;
+            background: #ffffff;
+            color: #0f172a;
         }
 
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+        /* Navigation - Matching index.html */
+        .nav-glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(168, 85, 247, 0.1);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
         }
 
-        .package-card {
+        /* Hero Section - Optimized for viewport fit */
+        .hero-gradient {
+            background: linear-gradient(135deg, #faf5ff 0%, #ffffff 50%, #f3e8ff 100%);
+            position: relative;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .hero-orb-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, #a855f7 0%, transparent 70%);
+            top: -150px;
+            right: -100px;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero-orb-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #c084fc 0%, transparent 70%);
+            bottom: -100px;
+            left: -100px;
+            animation: float 8s ease-in-out infinite;
+            animation-delay: 2s;
+        }
+
+        .hero-orb-3 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, #d8b4fe 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: float 8s ease-in-out infinite;
+            animation-delay: 1s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(20px, -20px); }
+        }
+
+        .hero-title {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #1e293b 0%, #581c87 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #a855f7 0%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Service Cards */
+        .service-card {
+            position: relative;
+            background: #ffffff;
+            border: 1px solid #e9d5ff;
+            border-radius: 24px;
+            padding: 32px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: visible;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 24px 48px rgba(168, 85, 247, 0.12);
+        }
+
+        .service-card.expanded {
+            grid-column: 1 / -1;
+        }
+
+        .service-details {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 2px solid transparent;
+        }
+
+        .service-card.expanded .service-details {
+            max-height: 1000px;
+            opacity: 1;
+            margin-top: 32px;
+        }
+
+        /* Popular Badge */
+        .popular-badge-wrapper {
+            position: absolute;
+            top: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 50;
+            pointer-events: none;
+        }
+
+        .popular-badge {
+            background: linear-gradient(135deg, #a855f7, #7e22ce);
+            color: white;
+            padding: 8px 24px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 16px rgba(168, 85, 247, 0.5);
+            white-space: nowrap;
+        }
+
+        /* Buttons - Fixed order and colors */
+        .btn-primary {
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+            color: white;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 15px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 16px rgba(168, 85, 247, 0.3);
+            display: inline-block;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(168, 85, 247, 0.4);
+        }
+
+        .btn-secondary {
+            padding: 14px 32px;
+            background: #0f172a;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-secondary:hover {
+            background: #1e293b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.3);
+        }
+
+        /* Package Cards */
+        .package-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: white;
+            position: relative;
+        }
+
+        .package-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(168, 85, 247, 0.15);
+        }
+
+        .feature-check {
+            color: #10B981;
+            flex-shrink: 0;
+        }
+
+        .feature-uncheck {
+            color: #EF4444;
+            flex-shrink: 0;
+        }
+
+        /* Professional card elevation */
+        .professional-card {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Animations */
+        .stagger-item {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .stagger-item:nth-child(1) { animation-delay: 0.1s; }
+        .stagger-item:nth-child(2) { animation-delay: 0.2s; }
+        .stagger-item:nth-child(3) { animation-delay: 0.3s; }
+        .stagger-item:nth-child(4) { animation-delay: 0.4s; }
+        .stagger-item:nth-child(5) { animation-delay: 0.5s; }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            overflow-x: hidden;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #1c1917;
+            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+        }
+
+        @media (min-width: 768px) {
+            .professional-card {
+                transform: scale(1.05);
+            }
+
+            .professional-card:hover {
+                transform: scale(1.05) translateY(-8px);
+            }
+        }
+
+        @media (max-width: 767px) {
+            .popular-badge {
+                font-size: 11px;
+                padding: 6px 18px;
+            }
+
+            .professional-card {
+                margin-top: 2rem;
+                margin-bottom: 2rem;
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Technology Logos */
+        .tech-logo-container {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 140px;
+            border: 1px solid #e9d5ff;
+            transition: all 0.3s ease;
+        }
+
+        .tech-logo-container:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.15);
+            border-color: #a855f7;
+        }
+
+        .tech-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .tech-name {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #1e293b;
+            text-align: center;
+        }
+
+        /* AI Section */
+        .ai-section {
+            background: #0f172a;
             position: relative;
             overflow: hidden;
         }
 
-        .package-card::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: radial-gradient(circle, rgba(234, 88, 12, 0.1) 0%, transparent 70%);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-            border-radius: 50%;
-        }
-
-        .package-card:hover::after {
-            width: 500px;
-            height: 500px;
-        }
-
-        .package-card:hover {
-            transform: translateY(-15px) rotateY(2deg);
-            box-shadow: 0 30px 60px rgba(16, 185, 129, 0.25);
-            border-color: #10b981;
-        }
-
-        .feature-item {
-            opacity: 0;
-            animation: slideInRight 0.5s forwards;
-            position: relative;
-        }
-
-        .feature-item::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 3px;
-            background: linear-gradient(to bottom, #10b981, #059669);
-            transform: scaleY(0);
-            transition: transform 0.3s ease;
-        }
-
-        .feature-item:hover::before {
-            transform: scaleY(1);
-        }
-
-        .feature-item:nth-child(1) { animation-delay: 0.1s; }
-        .feature-item:nth-child(2) { animation-delay: 0.15s; }
-        .feature-item:nth-child(3) { animation-delay: 0.2s; }
-        .feature-item:nth-child(4) { animation-delay: 0.25s; }
-        .feature-item:nth-child(5) { animation-delay: 0.3s; }
-        .feature-item:nth-child(6) { animation-delay: 0.35s; }
-        .feature-item:nth-child(7) { animation-delay: 0.4s; }
-        .feature-item:nth-child(8) { animation-delay: 0.45s; }
-        .feature-item:nth-child(9) { animation-delay: 0.5s; }
-        .feature-item:nth-child(10) { animation-delay: 0.55s; }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .badge {
-            animation: glow 2s infinite;
-        }
-
-        @keyframes glow {
-            0%, 100% {
-                box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
-            }
-            50% {
-                box-shadow: 0 0 30px rgba(16, 185, 129, 0.8);
-            }
-        }
-
-        .ai-icon {
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-
-        .ai-icon:hover {
-            transform: scale(1.2) rotate(360deg);
-            filter: drop-shadow(0 0 20px rgba(16, 185, 129, 0.6));
-        }
-
-        .popular-badge {
-            position: absolute;
-            top: -12px;
-            right: 20px;
-            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-            padding: 6px 20px;
-            border-radius: 20px;
-            color: white;
-            font-size: 12px;
-            font-weight: bold;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-
-        .ai-gradient {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #475569 100%);
-        }
-
-        .tech-gradient {
-            background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
-        }
-
-        .section-divider {
-            height: 3px;
-            background: linear-gradient(to right, transparent, #10b981, #059669, transparent);
-            margin: 60px auto;
-            max-width: 300px;
-        }
-
-        .stat-card {
-            transition: all 0.4s ease;
-            position: relative;
-        }
-
-        .stat-card::before {
-            content: '';
+        .ai-grid {
             position: absolute;
             inset: 0;
-            border-radius: inherit;
-            padding: 2px;
-            background: linear-gradient(135deg, #10b981, #3b82f6);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity: 0;
-            transition: opacity 0.4s;
+            background-image: 
+                linear-gradient(rgba(168, 85, 247, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(168, 85, 247, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.5;
         }
 
-        .stat-card:hover::before {
-            opacity: 1;
+        .ai-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 16px;
+            padding: 32px;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s;
         }
 
-        .stat-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.2);
+        .ai-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: #a855f7;
+            transform: translateY(-4px);
         }
 
-        .particle {
-            position: absolute;
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        @keyframes particle-float {
-            0%, 100% { transform: translateY(0) translateX(0); }
-            25% { transform: translateY(-20px) translateX(10px); }
-            50% { transform: translateY(-40px) translateX(-10px); }
-            75% { transform: translateY(-20px) translateX(10px); }
-        }
-
-        .use-case-card {
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .use-case-card:hover {
-            transform: translateX(10px);
-            box-shadow: -5px 0 0 0 #10b981;
-        }
-
-        .wave {
-            animation: wave 3s ease-in-out infinite;
-        }
-
-        @keyframes wave {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(5deg); }
-            75% { transform: rotate(-5deg); }
-        }
-
-        .pulse-ring {
-            animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-
-        @keyframes pulse-ring {
-            0%, 100% {
-                opacity: 1;
-                transform: scale(1);
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero-gradient {
+                min-height: 100vh;
+                padding: 0 1rem;
             }
-            50% {
-                opacity: 0.5;
-                transform: scale(1.1);
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .service-card {
+                padding: 24px;
+            }
+
+            .btn-primary, .btn-secondary {
+                padding: 12px 24px;
+                font-size: 14px;
+            }
+
+            .tech-logo-container {
+                height: 120px;
+                padding: 1rem;
+            }
+
+            .tech-icon {
+                font-size: 2rem;
+            }
+            
+            .tech-name {
+                font-size: 0.75rem;
             }
         }
     </style>
 </head>
 
-<body class="antialiased text-brand-800">
+<body>
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 glass-panel border-b border-brand-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Navigation - Matching index.html structure -->
+    <nav class="fixed top-0 left-0 right-0 w-full z-50 nav-glass">
+        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
-                <div class="flex-shrink-0 flex items-center gap-2">
+                <a href="index.html" class="flex-shrink-0 flex items-center gap-2">
                     <img src="logo.png" alt="NODE.io Logo" class="w-10 h-10 object-contain">
-                    <span class="font-display font-bold text-xl tracking-tight">NODE.io</span>
-                </div>
-                <div class="flex items-center space-x-6">
-                    <a href="/" class="text-sm font-medium hover:text-brand-accent transition-colors">
+                    <span class="font-display font-bold text-xl tracking-tight text-gray-900">NODE.io</span>
+                </a>
+                
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="index.html" class="text-sm font-medium text-slate-700 hover:text-purple-600 transition-colors">
                         <i class="fa-solid fa-arrow-left mr-2"></i>Back to Home
                     </a>
-                    <a href="#contact" class="px-6 py-2 bg-brand-accent text-white rounded-lg font-bold hover:bg-orange-700 transition-colors">
+                    <a href="#contact" class="btn-primary" style="padding: 10px 24px; font-size: 14px;">
                         Get a Quote
                     </a>
                 </div>
+                
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-900 p-2" aria-label="Toggle menu">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu - Matching index.html -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-sm border-t border-purple-100 p-4">
+            <div class="flex flex-col space-y-3">
+                <a href="index.html" class="text-left font-medium py-2 hover:text-purple-600 transition-colors">
+                    <i class="fa-solid fa-arrow-left mr-2"></i>Back to Home
+                </a>
+                <a href="#packages" class="text-left font-medium py-2 hover:text-purple-600 transition-colors">View Packages</a>
+                <a href="#technology" class="text-left font-medium py-2 hover:text-purple-600 transition-colors">Technologies</a>
+                <a href="#use-cases" class="text-left font-medium py-2 hover:text-purple-600 transition-colors">Use Cases</a>
+                <a href="#contact" class="text-left font-medium py-2 hover:text-purple-600 transition-colors">Get a Quote</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="pt-32 pb-20 ai-gradient text-white relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10">
-            <div class="absolute top-20 left-20 w-72 h-72 bg-green-400 rounded-full blur-3xl"></div>
-            <div class="absolute bottom-20 right-20 w-96 h-96 bg-blue-500 rounded-full blur-3xl"></div>
-            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-emerald-500 rounded-full blur-3xl"></div>
-        </div>
-        
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center" data-aos="fade-down">
-                <div class="inline-block mb-6">
-                    <span class="inline-block py-2 px-4 rounded-full bg-green-500/20 border border-green-400/40 text-green-300 text-sm font-bold tracking-wider badge">
-                        <i class="fa-solid fa-brain mr-2"></i>AI & AUTOMATION SOLUTIONS
-                    </span>
+    <!-- Hero Section - Optimized -->
+    <section class="hero-gradient pt-20">
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="hero-orb hero-orb-3"></div>
+
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-purple-200 shadow-sm mb-6 stagger-item">
+                <div class="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></div>
+                <span class="text-sm font-semibold text-purple-700">Intelligent Automation</span>
+            </div>
+
+            <h1 class="hero-title mb-5 stagger-item">
+                Transform Your Business<br/>
+                <span class="gradient-text">With AI & Automation</span>
+            </h1>
+
+            <p class="text-lg md:text-xl text-slate-600 mb-8 max-w-2xl mx-auto leading-relaxed stagger-item">
+                From RAG chatbots to intelligent process automation and web scraping. We deliver cutting-edge AI solutions that save time, reduce costs, and boost productivity.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8 stagger-item">
+                <a href="#packages" class="btn-primary">
+                    View AI Packages
+                    <i class="fa-solid fa-arrow-right ml-2"></i>
+                </a>
+                <a href="index.html" class="btn-secondary">
+                    <i class="fa-solid fa-arrow-left mr-2"></i>
+                    Back to Services
+                </a>
+            </div>
+
+            <div class="flex flex-wrap gap-6 justify-center stagger-item">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-check-circle text-purple-500 text-lg"></i>
+                    <span class="text-sm font-medium text-slate-700">RAG Chatbots</span>
                 </div>
-                <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-                    Intelligent Automation<br/>
-                    <span class="text-green-400">Powered by AI</span>
-                </h1>
-                <p class="text-xl text-white/90 max-w-3xl mx-auto mb-8">
-                    Transform your business with cutting-edge AI solutions. From RAG chatbots to process automation, web scraping, and intelligent lead generation systems.
-                </p>
-                <div class="flex justify-center gap-4 flex-wrap">
-                    <div class="flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-lg pulse-ring">
-                        <i class="fa-solid fa-bolt text-yellow-300"></i>
-                        <span class="text-sm">Fast Implementation</span>
-                    </div>
-                    <div class="flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-lg pulse-ring">
-                        <i class="fa-solid fa-brain text-green-300"></i>
-                        <span class="text-sm">Smart AI Models</span>
-                    </div>
-                    <div class="flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-lg pulse-ring">
-                        <i class="fa-solid fa-shield-halved text-blue-300"></i>
-                        <span class="text-sm">Secure & Reliable</span>
-                    </div>
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-check-circle text-purple-500 text-lg"></i>
+                    <span class="text-sm font-medium text-slate-700">Process Automation</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-check-circle text-purple-500 text-lg"></i>
+                    <span class="text-sm font-medium text-slate-700">Web Scraping</span>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Stats Section -->
-    <section class="py-16 bg-white border-b border-brand-100">
+    <section class="py-12 bg-gradient-to-r from-purple-50 to-pink-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                <div class="stat-card p-6 rounded-xl" data-aos="fade-up" data-aos-delay="100">
-                    <div class="text-4xl font-bold text-green-600 mb-2">80%</div>
-                    <div class="text-sm text-brand-600">Time Saved</div>
+                <div class="p-6 rounded-xl bg-white shadow-sm border border-purple-100 reveal" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-3xl font-bold text-purple-600 mb-2">80%</div>
+                    <div class="text-sm text-slate-600">Time Saved</div>
                 </div>
-                <div class="stat-card p-6 rounded-xl" data-aos="fade-up" data-aos-delay="200">
-                    <div class="text-4xl font-bold text-green-600 mb-2">24/7</div>
-                    <div class="text-sm text-brand-600">AI Availability</div>
+                <div class="p-6 rounded-xl bg-white shadow-sm border border-purple-100 reveal" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-3xl font-bold text-purple-600 mb-2">24/7</div>
+                    <div class="text-sm text-slate-600">AI Availability</div>
                 </div>
-                <div class="stat-card p-6 rounded-xl" data-aos="fade-up" data-aos-delay="300">
-                    <div class="text-4xl font-bold text-green-600 mb-2">10x</div>
-                    <div class="text-sm text-brand-600">ROI Increase</div>
+                <div class="p-6 rounded-xl bg-white shadow-sm border border-purple-100 reveal" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-3xl font-bold text-purple-600 mb-2">10x</div>
+                    <div class="text-sm text-slate-600">ROI Increase</div>
                 </div>
-                <div class="stat-card p-6 rounded-xl" data-aos="fade-up" data-aos-delay="400">
-                    <div class="text-4xl font-bold text-green-600 mb-2">99%</div>
-                    <div class="text-sm text-brand-600">Accuracy Rate</div>
+                <div class="p-6 rounded-xl bg-white shadow-sm border border-purple-100 reveal" data-aos="fade-up" data-aos-delay="400">
+                    <div class="text-3xl font-bold text-purple-600 mb-2">99%</div>
+                    <div class="text-sm text-slate-600">Accuracy Rate</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Package Cards Section -->
-    <section class="py-20 bg-brand-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-4xl font-bold text-brand-900 mb-4">AI & Automation Packages</h2>
-                <p class="text-brand-600 max-w-2xl mx-auto">
+    <!-- PACKAGES SECTION -->
+    <section id="packages" class="py-16 md:py-20 bg-white">
+        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 md:mb-20" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">AI & Automation Packages</h2>
+                <p class="mt-4 text-gray-600 text-base md:text-lg max-w-2xl mx-auto leading-relaxed px-4">
                     Choose from our specialized AI solutions designed to automate your workflows and enhance productivity.
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-start">
                 
                 <!-- RAG Chatbot Package -->
-                <div class="package-card bg-white rounded-2xl p-8 shadow-lg relative" data-aos="fade-up" data-aos-delay="100">
-                    <div class="mb-6">
-                        <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center text-white text-2xl mb-4 wave">
-                            <i class="fa-solid fa-comments"></i>
+                <div class="package-card rounded-2xl shadow-lg border border-purple-100 overflow-hidden flex flex-col" data-aos="fade-up" data-aos-delay="100">
+                    <div class="p-6 md:p-8 bg-gradient-to-r from-purple-50 to-pink-50">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <span class="text-xs font-bold text-purple-700 uppercase tracking-wider">Popular</span>
+                                <h3 class="text-2xl font-bold text-gray-900 mt-1">RAG Chatbot</h3>
+                            </div>
                         </div>
-                        <h3 class="text-2xl font-bold text-brand-900 mb-2">RAG Chatbot</h3>
-                        <p class="text-brand-600 text-sm">Intelligent chatbots trained on your data</p>
+                        <p class="text-sm text-gray-600 mt-4">Intelligent chatbots trained on your data</p>
                     </div>
-
-                    <div class="space-y-3 mb-8">
-                        <div class="feature-item flex items-start gap-3 pl-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Custom knowledge base training</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3 pl-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Vector database integration</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3 pl-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Multi-channel deployment (Web, WhatsApp, Telegram)</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3 pl-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Context-aware responses</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3 pl-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Conversation history tracking</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3 pl-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Analytics dashboard</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3 pl-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">LLM model customization (GPT-4, Claude, etc.)</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3 pl-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">2 months support & updates</span>
-                        </div>
+                    
+                    <div class="p-6 md:p-8 flex-grow">
+                        <h4 class="font-bold text-gray-900 mb-4 text-base md:text-lg">What's Included:</h4>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Custom knowledge base training</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Vector database integration</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Multi-channel deployment</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Context-aware responses</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Analytics dashboard</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">LLM model customization</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">2 months support & updates</span>
+                            </li>
+                        </ul>
+                        
+                        <a href="#contact" class="w-full py-3 md:py-4 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 hover:shadow-lg hover:scale-105 transition-all block text-center text-sm md:text-base">
+                            Get Quote
+                        </a>
                     </div>
-
-                    <a href="#contact" class="block w-full py-3 bg-brand-800 text-white text-center rounded-lg font-bold hover:bg-brand-700 transition-colors">
-                        Request Quote
-                    </a>
                 </div>
 
-                <!-- Business Automation Package -->
-                <div class="package-card bg-white rounded-2xl p-8 shadow-lg relative" data-aos="fade-up" data-aos-delay="200">
-                    <span class="popular-badge">MOST POPULAR</span>
+                <!-- Business Automation Package (Most Popular - Elevated) -->
+                <div class="package-card professional-card rounded-2xl shadow-xl border-2 border-purple-500 flex flex-col" data-aos="fade-up" data-aos-delay="200">
+                    <div class="popular-badge-wrapper">
+                        <div class="popular-badge">
+                            MOST POPULAR
+                        </div>
+                    </div>
                     
-                    <div class="mb-6">
-                        <div class="w-16 h-16 bg-gradient-to-br from-purple-400 to-purple-600 rounded-xl flex items-center justify-center text-white text-2xl mb-4 wave" style="animation-delay: 0.2s;">
-                            <i class="fa-solid fa-robot"></i>
+                    <div class="p-6 md:p-8 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-t-2xl">
+                        <div>
+                            <h3 class="text-2xl font-bold text-white">Business Automation</h3>
                         </div>
-                        <h3 class="text-2xl font-bold text-brand-900 mb-2">Business Automation</h3>
-                        <p class="text-brand-600 text-sm">Streamline repetitive tasks with AI</p>
+                        <p class="text-sm text-white/90 mt-4">Streamline repetitive tasks with AI</p>
                     </div>
-
-                    <div class="space-y-3 mb-8">
-                        <div class="feature-item flex items-start gap-3 pl-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Custom workflow automation</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3 pl-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Email automation & responses</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3 pl-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Data entry & processing automation</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3 pl-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">API integration & orchestration</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3 pl-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Report generation automation</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3 pl-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Scheduled task execution</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3 pl-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Error handling & notifications</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3 pl-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">3 months support & maintenance</span>
-                        </div>
+                    
+                    <div class="p-6 md:p-8 flex-grow">
+                        <h4 class="font-bold text-gray-900 mb-4 text-base md:text-lg">What's Included:</h4>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Custom workflow automation</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Email automation & responses</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Data processing automation</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">API integration & orchestration</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Report generation automation</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Scheduled task execution</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">3 months support & maintenance</span>
+                            </li>
+                        </ul>
+                        
+                        <a href="#contact" class="w-full py-3 md:py-4 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 hover:shadow-lg hover:scale-105 transition-all block text-center text-sm md:text-base">
+                            Get Quote
+                        </a>
                     </div>
-
-                    <a href="#contact" class="block w-full py-3 bg-brand-accent text-white text-center rounded-lg font-bold hover:bg-orange-700 transition-colors">
-                        Request Quote
-                    </a>
                 </div>
 
                 <!-- Web Scraping & Lead Gen Package -->
-                <div class="package-card bg-white rounded-2xl p-8 shadow-lg relative" data-aos="fade-up" data-aos-delay="300">
-                    <div class="mb-6">
-                        <div class="w-16 h-16 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center text-white text-2xl mb-4 wave" style="animation-delay: 0.4s;">
-                            <i class="fa-solid fa-chart-line"></i>
+                <div class="package-card rounded-2xl shadow-lg border border-purple-100 overflow-hidden flex flex-col" data-aos="fade-up" data-aos-delay="300">
+                    <div class="p-6 md:p-8 bg-gradient-to-r from-pink-50 to-purple-50">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-900">Web Scraping & Lead Gen</h3>
                         </div>
-                        <h3 class="text-2xl font-bold text-brand-900 mb-2">Web Scraping & Lead Gen</h3>
-                        <p class="text-brand-600 text-sm">Automated data extraction & leads</p>
+                        <p class="text-sm text-gray-600 mt-4">Automated data extraction & leads</p>
                     </div>
-
-                    <div class="space-y-3 mb-8">
-                        <div class="feature-item flex items-start gap-3 pl-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Custom web scraping scripts</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3 pl-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Lead generation automation</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3 pl-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Data cleaning & formatting</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3 pl-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Email/contact extraction</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3 pl-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Social media data mining</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3 pl-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">CRM integration (HubSpot, Salesforce)</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3 pl-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Scheduled data collection</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3 pl-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">Export to CSV/Excel/Database</span>
-                        </div>
-                        <div class="feature-item flex items-start gap-3 pl-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span class="text-sm text-brand-700">2 months support & updates</span>
-                        </div>
+                    
+                    <div class="p-6 md:p-8 flex-grow">
+                        <h4 class="font-bold text-gray-900 mb-4 text-base md:text-lg">What's Included:</h4>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Custom web scraping scripts</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Lead generation automation</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Data cleaning & formatting</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Email/contact extraction</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Social media data mining</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">CRM integration</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">Export to CSV/Excel/Database</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-check feature-check mt-0.5"></i>
+                                <span class="text-gray-700 text-sm md:text-base">2 months support & updates</span>
+                            </li>
+                        </ul>
+                        
+                        <a href="#contact" class="w-full py-3 md:py-4 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 hover:shadow-lg hover:scale-105 transition-all block text-center text-sm md:text-base">
+                            Get Quote
+                        </a>
                     </div>
-
-                    <a href="#contact" class="block w-full py-3 bg-brand-800 text-white text-center rounded-lg font-bold hover:bg-brand-700 transition-colors">
-                        Request Quote
-                    </a>
                 </div>
 
             </div>
@@ -526,253 +729,325 @@
     </section>
 
     <!-- AI Technologies Section -->
-    <section class="py-20 bg-white">
+    <section id="technology" class="py-16 md:py-20 bg-gradient-to-b from-white to-purple-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-4xl font-bold text-brand-900 mb-4">AI Technologies We Use</h2>
-                <p class="text-brand-600 max-w-2xl mx-auto">
-                    Powered by the latest AI models and frameworks for maximum performance and accuracy.
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+                    Powered by <span class="gradient-text">Cutting-edge AI</span>
+                </h2>
+                <p class="text-lg text-slate-600 max-w-3xl mx-auto">
+                    We use the latest AI models and frameworks to build intelligent, scalable automation solutions.
                 </p>
             </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 text-center">
-                <div class="ai-icon p-6 bg-brand-50 rounded-xl" data-aos="zoom-in" data-aos-delay="100">
-                    <i class="fa-brands fa-python text-5xl text-blue-600 mb-3"></i>
-                    <p class="text-sm font-semibold text-brand-700">Python</p>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 text-center">
+                <div class="tech-logo-container reveal">
+                    <i class="fa-brands fa-python tech-icon text-blue-600"></i>
+                    <span class="tech-name">Python</span>
                 </div>
-                <div class="ai-icon p-6 bg-brand-50 rounded-xl" data-aos="zoom-in" data-aos-delay="150">
-                    <i class="fa-solid fa-brain text-5xl text-green-600 mb-3"></i>
-                    <p class="text-sm font-semibold text-brand-700">OpenAI GPT-4</p>
+                <div class="tech-logo-container reveal">
+                    <i class="fa-solid fa-brain tech-icon text-purple-600"></i>
+                    <span class="tech-name">OpenAI GPT</span>
                 </div>
-                <div class="ai-icon p-6 bg-brand-50 rounded-xl" data-aos="zoom-in" data-aos-delay="200">
-                    <i class="fa-solid fa-robot text-5xl text-purple-600 mb-3"></i>
-                    <p class="text-sm font-semibold text-brand-700">Claude AI</p>
+                <div class="tech-logo-container reveal">
+                    <i class="fa-solid fa-robot tech-icon text-indigo-600"></i>
+                    <span class="tech-name">Claude AI</span>
                 </div>
-                <div class="ai-icon p-6 bg-brand-50 rounded-xl" data-aos="zoom-in" data-aos-delay="250">
-                    <i class="fa-solid fa-database text-5xl text-orange-600 mb-3"></i>
-                    <p class="text-sm font-semibold text-brand-700">Vector DB</p>
+                <div class="tech-logo-container reveal">
+                    <i class="fa-solid fa-database tech-icon text-orange-600"></i>
+                    <span class="tech-name">Vector DB</span>
                 </div>
-                <div class="ai-icon p-6 bg-brand-50 rounded-xl" data-aos="zoom-in" data-aos-delay="300">
-                    <i class="fa-solid fa-code text-5xl text-red-600 mb-3"></i>
-                    <p class="text-sm font-semibold text-brand-700">LangChain</p>
+                <div class="tech-logo-container reveal">
+                    <i class="fa-solid fa-code tech-icon text-red-600"></i>
+                    <span class="tech-name">LangChain</span>
                 </div>
-                <div class="ai-icon p-6 bg-brand-50 rounded-xl" data-aos="zoom-in" data-aos-delay="350">
-                    <i class="fa-solid fa-bolt text-5xl text-yellow-600 mb-3"></i>
-                    <p class="text-sm font-semibold text-brand-700">Selenium</p>
+                <div class="tech-logo-container reveal">
+                    <i class="fa-solid fa-bolt tech-icon text-yellow-600"></i>
+                    <span class="tech-name">Selenium</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <div class="section-divider"></div>
-
     <!-- Use Cases Section -->
-    <section class="py-20 bg-brand-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-4xl font-bold text-brand-900 mb-4">Real-World Use Cases</h2>
-                <p class="text-brand-600 max-w-2xl mx-auto">
+    <section id="use-cases" class="ai-section py-16 md:py-20 relative">
+        <div class="ai-grid"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+                    Real-World <span class="gradient-text" style="text-shadow: 0 0 20px rgba(168, 85, 247, 0.8);">AI Applications</span>
+                </h2>
+                <p class="text-lg text-slate-400 max-w-3xl mx-auto">
                     See how AI & Automation transforms businesses across different industries.
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="use-case-card bg-white p-6 rounded-xl shadow-sm border-l-4 border-blue-500" data-aos="fade-right" data-aos-delay="100">
-                    <div class="flex items-start gap-4">
-                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 flex-shrink-0">
-                            <i class="fa-solid fa-headset text-xl"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-bold text-brand-900 mb-2">Customer Support Automation</h3>
-                            <p class="text-sm text-brand-600 mb-3">Deploy AI chatbots to handle 80% of customer inquiries instantly, reducing support costs and improving response times.</p>
-                            <span class="text-xs font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">RAG Chatbot</span>
-                        </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <div class="ai-card reveal">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-xl mb-4">
+                        <i class="fa-solid fa-headset"></i>
                     </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Customer Support Automation</h3>
+                    <p class="text-slate-400 leading-relaxed text-sm">
+                        Deploy AI chatbots to handle 80% of customer inquiries instantly, reducing support costs and improving response times.
+                    </p>
                 </div>
 
-                <div class="use-case-card bg-white p-6 rounded-xl shadow-sm border-l-4 border-green-500" data-aos="fade-left" data-aos-delay="150">
-                    <div class="flex items-start gap-4">
-                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center text-green-600 flex-shrink-0">
-                            <i class="fa-solid fa-users text-xl"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-bold text-brand-900 mb-2">Lead Generation at Scale</h3>
-                            <p class="text-sm text-brand-600 mb-3">Automatically scrape and qualify leads from multiple sources, enriching data with AI-powered insights.</p>
-                            <span class="text-xs font-semibold text-green-600 bg-green-50 px-3 py-1 rounded-full">Web Scraping</span>
-                        </div>
+                <div class="ai-card reveal">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-xl mb-4">
+                        <i class="fa-solid fa-users"></i>
                     </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Lead Generation at Scale</h3>
+                    <p class="text-slate-400 leading-relaxed text-sm">
+                        Automatically scrape and qualify leads from multiple sources, enriching data with AI-powered insights.
+                    </p>
                 </div>
 
-                <div class="use-case-card bg-white p-6 rounded-xl shadow-sm border-l-4 border-purple-500" data-aos="fade-right" data-aos-delay="200">
-                    <div class="flex items-start gap-4">
-                        <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600 flex-shrink-0">
-                            <i class="fa-solid fa-file-invoice text-xl"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-bold text-brand-900 mb-2">Invoice Processing</h3>
-                            <p class="text-sm text-brand-600 mb-3">Extract data from invoices automatically, validate information, and update accounting systems without manual entry.</p>
-                            <span class="text-xs font-semibold text-purple-600 bg-purple-50 px-3 py-1 rounded-full">Automation</span>
-                        </div>
+                <div class="ai-card reveal">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-xl mb-4">
+                        <i class="fa-solid fa-file-invoice"></i>
                     </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Invoice Processing</h3>
+                    <p class="text-slate-400 leading-relaxed text-sm">
+                        Extract data from invoices automatically, validate information, and update accounting systems without manual entry.
+                    </p>
                 </div>
 
-                <div class="use-case-card bg-white p-6 rounded-xl shadow-sm border-l-4 border-orange-500" data-aos="fade-left" data-aos-delay="250">
-                    <div class="flex items-start gap-4">
-                        <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center text-orange-600 flex-shrink-0">
-                            <i class="fa-solid fa-chart-bar text-xl"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-bold text-brand-900 mb-2">Market Research Automation</h3>
-                            <p class="text-sm text-brand-600 mb-3">Gather competitor pricing, product data, and market trends automatically with scheduled scraping bots.</p>
-                            <span class="text-xs font-semibold text-orange-600 bg-orange-50 px-3 py-1 rounded-full">Web Scraping</span>
-                        </div>
+                <div class="ai-card reveal">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-xl mb-4">
+                        <i class="fa-solid fa-chart-bar"></i>
                     </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Market Research Automation</h3>
+                    <p class="text-slate-400 leading-relaxed text-sm">
+                        Gather competitor pricing, product data, and market trends automatically with scheduled scraping bots.
+                    </p>
                 </div>
 
-                <div class="use-case-card bg-white p-6 rounded-xl shadow-sm border-l-4 border-red-500" data-aos="fade-right" data-aos-delay="300">
-                    <div class="flex items-start gap-4">
-                        <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center text-red-600 flex-shrink-0">
-                            <i class="fa-solid fa-envelope text-xl"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-bold text-brand-900 mb-2">Email Campaign Automation</h3>
-                            <p class="text-sm text-brand-600 mb-3">Personalize and send targeted email campaigns with AI-generated content based on customer behavior.</p>
-                            <span class="text-xs font-semibold text-red-600 bg-red-50 px-3 py-1 rounded-full">Automation</span>
-                        </div>
+                <div class="ai-card reveal">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-xl mb-4">
+                        <i class="fa-solid fa-envelope"></i>
                     </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Email Campaign Automation</h3>
+                    <p class="text-slate-400 leading-relaxed text-sm">
+                        Personalize and send targeted email campaigns with AI-generated content based on customer behavior.
+                    </p>
                 </div>
 
-                <div class="use-case-card bg-white p-6 rounded-xl shadow-sm border-l-4 border-teal-500" data-aos="fade-left" data-aos-delay="350">
-                    <div class="flex items-start gap-4">
-                        <div class="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center text-teal-600 flex-shrink-0">
-                            <i class="fa-solid fa-book text-xl"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-bold text-brand-900 mb-2">Knowledge Base Assistant</h3>
-                            <p class="text-sm text-brand-600 mb-3">Train AI on company documents to provide instant answers to employee questions and onboarding support.</p>
-                            <span class="text-xs font-semibold text-teal-600 bg-teal-50 px-3 py-1 rounded-full">RAG Chatbot</span>
-                        </div>
+                <div class="ai-card reveal">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-xl mb-4">
+                        <i class="fa-solid fa-book"></i>
                     </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Knowledge Base Assistant</h3>
+                    <p class="text-slate-400 leading-relaxed text-sm">
+                        Train AI on company documents to provide instant answers to employee questions and onboarding support.
+                    </p>
                 </div>
+
             </div>
         </div>
     </section>
 
     <!-- Process Section -->
-    <section class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-4xl font-bold text-brand-900 mb-4">Our AI Implementation Process</h2>
-                <p class="text-brand-600 max-w-2xl mx-auto">
+    <section id="process" class="py-16 md:py-20 bg-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+                    Our AI Implementation <span class="gradient-text">Process</span>
+                </h2>
+                <p class="text-lg text-slate-600 max-w-3xl mx-auto">
                     From discovery to deployment, we ensure smooth integration of AI into your workflows.
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="text-center" data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-20 h-20 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
+            <div class="space-y-8">
+                
+                <div class="flex items-start gap-6 p-6 rounded-2xl bg-purple-50 border border-purple-100 reveal">
+                    <div class="w-12 h-12 flex-shrink-0 rounded-xl bg-purple-600 text-white flex items-center justify-center text-xl font-bold">
                         1
                     </div>
-                    <h3 class="text-lg font-bold text-brand-900 mb-2">Discovery</h3>
-                    <p class="text-sm text-brand-600">Analyze your workflows and identify automation opportunities.</p>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Discovery & Analysis</h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            We analyze your workflows, identify automation opportunities, and define clear objectives for AI implementation.
+                        </p>
+                    </div>
                 </div>
 
-                <div class="text-center" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
+                <div class="flex items-start gap-6 p-6 rounded-2xl bg-pink-50 border border-pink-100 reveal">
+                    <div class="w-12 h-12 flex-shrink-0 rounded-xl bg-pink-600 text-white flex items-center justify-center text-xl font-bold">
                         2
                     </div>
-                    <h3 class="text-lg font-bold text-brand-900 mb-2">Design</h3>
-                    <p class="text-sm text-brand-600">Create AI architecture and select optimal models for your use case.</p>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Design & Planning</h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            Create AI architecture, select optimal models, and plan the integration strategy for your specific use case.
+                        </p>
+                    </div>
                 </div>
 
-                <div class="text-center" data-aos="fade-up" data-aos-delay="300">
-                    <div class="w-20 h-20 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
+                <div class="flex items-start gap-6 p-6 rounded-2xl bg-indigo-50 border border-indigo-100 reveal">
+                    <div class="w-12 h-12 flex-shrink-0 rounded-xl bg-indigo-600 text-white flex items-center justify-center text-xl font-bold">
                         3
                     </div>
-                    <h3 class="text-lg font-bold text-brand-900 mb-2">Development</h3>
-                    <p class="text-sm text-brand-600">Build, train, and test AI solutions with your data.</p>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Development & Training</h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            Build, train, and test AI solutions with your data, ensuring accuracy and reliability before deployment.
+                        </p>
+                    </div>
                 </div>
 
-                <div class="text-center" data-aos="fade-up" data-aos-delay="400">
-                    <div class="w-20 h-20 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
+                <div class="flex items-start gap-6 p-6 rounded-2xl bg-blue-50 border border-blue-100 reveal">
+                    <div class="w-12 h-12 flex-shrink-0 rounded-xl bg-blue-600 text-white flex items-center justify-center text-xl font-bold">
                         4
                     </div>
-                    <h3 class="text-lg font-bold text-brand-900 mb-2">Deploy</h3>
-                    <p class="text-sm text-brand-600">Launch AI systems with monitoring and continuous optimization.</p>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Deployment & Support</h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            Launch AI systems with monitoring, provide training, and offer continuous support for optimization.
+                        </p>
+                    </div>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section id="contact" class="py-20 tech-gradient text-white relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10">
-            <div class="absolute top-10 left-10 w-64 h-64 bg-white rounded-full blur-3xl"></div>
-            <div class="absolute bottom-10 right-10 w-80 h-80 bg-white rounded-full blur-3xl"></div>
-        </div>
-
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10" data-aos="fade-up">
-            <div class="mb-8">
-                <i class="fa-solid fa-brain text-6xl mb-4 wave"></i>
-            </div>
-            <h2 class="text-4xl font-bold mb-6">Ready to Transform Your Business with AI?</h2>
-            <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-                Let's discuss how AI and automation can save you time, reduce costs, and scale your operations.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="mailto:ionode25@gmail.com" class="px-8 py-4 bg-white text-green-600 rounded-lg font-bold hover:bg-brand-50 transition-all transform hover:-translate-y-1 shadow-lg">
-                    <i class="fa-solid fa-envelope mr-2"></i>Get a Quote
-                </a>
-                <a href="/" class="px-8 py-4 bg-white/10 backdrop-blur text-white border-2 border-white rounded-lg font-bold hover:bg-white/20 transition-all">
-                    <i class="fa-solid fa-arrow-left mr-2"></i>Back to Services
-                </a>
-            </div>
-            
-            <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-                <div class="bg-white/10 backdrop-blur p-6 rounded-xl">
-                    <i class="fa-solid fa-bolt text-3xl mb-3"></i>
-                    <h4 class="font-bold mb-2">Fast Setup</h4>
-                    <p class="text-sm text-white/80">Most AI solutions deployed within 2-4 weeks</p>
-                </div>
-                <div class="bg-white/10 backdrop-blur p-6 rounded-xl">
-                    <i class="fa-solid fa-shield-halved text-3xl mb-3"></i>
-                    <h4 class="font-bold mb-2">Data Security</h4>
-                    <p class="text-sm text-white/80">Enterprise-grade encryption and privacy</p>
-                </div>
-                <div class="bg-white/10 backdrop-blur p-6 rounded-xl">
-                    <i class="fa-solid fa-life-ring text-3xl mb-3"></i>
-                    <h4 class="font-bold mb-2">Ongoing Support</h4>
-                    <p class="text-sm text-white/80">Continuous monitoring and optimization</p>
-                </div>
+    <!-- Contact Section -->
+    <section id="contact" class="ai-section py-16 md:py-20 relative">
+        <div class="ai-grid"></div>
+        
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+                    Ready to <span class="gradient-text" style="text-shadow: 0 0 20px rgba(168, 85, 247, 0.8);">Automate Your Business?</span>
+                </h2>
+                <p class="text-lg text-slate-400 max-w-3xl mx-auto">
+                    Let's discuss how AI and automation can save you time, reduce costs, and scale your operations.
+                </p>
             </div>
 
-            <div class="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6">
-                <div class="flex items-center gap-3">
-                    <i class="fa-solid fa-location-dot text-xl"></i>
-                    <span>Colombo, Sri Lanka</span>
+            <div class="text-center reveal">
+                <div class="flex flex-col sm:flex-row gap-4 justify-center mb-10">
+                    <a href="mailto:ionode25@gmail.com" class="btn-primary text-center">
+                        <i class="fa-solid fa-envelope mr-2"></i>
+                        Get a Quote Now
+                    </a>
+                    <a href="index.html" class="btn-secondary text-center">
+                        <i class="fa-solid fa-arrow-left mr-2"></i>
+                        Back to All Services
+                    </a>
                 </div>
-                <div class="flex items-center gap-3">
-                    <i class="fa-solid fa-envelope text-xl"></i>
-                    <span>ionode25@gmail.com</span>
+
+                <div class="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+                    <div class="flex items-center justify-center gap-3 p-5 bg-white/5 rounded-xl backdrop-blur border border-white/10">
+                        <i class="fa-solid fa-envelope text-purple-400 text-2xl"></i>
+                        <div class="text-left">
+                            <p class="text-slate-400 text-sm">Email</p>
+                            <a href="mailto:ionode25@gmail.com" class="text-white font-semibold hover:text-purple-400 transition-colors text-sm">
+                                ionode25@gmail.com
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-center gap-3 p-5 bg-white/5 rounded-xl backdrop-blur border border-white/10">
+                        <i class="fa-solid fa-location-dot text-purple-400 text-2xl"></i>
+                        <div class="text-left">
+                            <p class="text-slate-400 text-sm">Location</p>
+                            <p class="text-white font-semibold text-sm">Colombo, Sri Lanka</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-brand-900 text-white py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-brand-400">© 2025 NODE.io Solutions. All rights reserved.</p>
+    <footer class="bg-slate-900 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <a href="index.html" class="flex-shrink-0 flex items-center gap-2">
+                    <img src="logo-white.png" alt="NODE.io Logo" class="w-10 h-10 object-contain">
+                    <span class="font-display font-bold text-xl tracking-tight text-gray-100">NODE.io</span>
+                </a>
+
+                <p class="text-slate-400 text-sm text-center">
+                    © 2025 NODE.io. Crafted with intelligence.
+                </p>
+
+                <div class="flex items-center gap-3">
+                    <a href="mailto:ionode25@gmail.com" class="w-9 h-9 rounded-lg bg-slate-800 flex items-center justify-center text-slate-400 hover:text-purple-400 hover:bg-slate-700 transition-all">
+                        <i class="fa-solid fa-envelope"></i>
+                    </a>
+                    <a href="https://www.instagram.com/node.io_/" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-lg bg-slate-800 flex items-center justify-center text-slate-400 hover:text-purple-400 hover:bg-slate-700 transition-all">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=61583529369023" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-lg bg-slate-800 flex items-center justify-center text-slate-400 hover:text-purple-400 hover:bg-slate-700 transition-all">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@node_io" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-lg bg-slate-800 flex items-center justify-center text-slate-400 hover:text-purple-400 hover:bg-slate-700 transition-all">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                </div>
+            </div>
         </div>
     </footer>
 
-    <!-- AOS Script -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({
-            duration: 800,
-            once: true,
-            offset: 100
+        // Mobile Menu Toggle - Matching index.html
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Scroll Reveal Animation
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealOnScroll = () => {
+            revealElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight * 0.85) {
+                    element.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // Smooth Scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerOffset = 80;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                }
+            });
+        });
+
+        // Navigation Shadow on Scroll
+        const nav = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.style.boxShadow = '0 4px 24px rgba(0, 0, 0, 0.08)';
+            } else {
+                nav.style.boxShadow = '0 4px 24px rgba(0, 0, 0, 0.04)';
+            }
         });
     </script>
 
