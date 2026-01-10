@@ -1,1 +1,98 @@
-# Netlify Optimization Configuration [build] publish = "." [[headers]] for = "/*" [headers.values] # Cache static assets for 1 year Cache-Control = "public, max-age=31536000, immutable" [[headers]] for = "/*.html" [headers.values] # Cache HTML for 1 hour Cache-Control = "public, max-age=3600" [[headers]] for = "/*" [headers.values] # Security headers X-Frame-Options = "DENY" X-Content-Type-Options = "nosniff" X-XSS-Protection = "1; mode=block" # Redirects for clean URLs [[redirects]] from = "/home" to = "/index.html" status = 200 [[redirects]] from = "/ai-automation" to = "/ai-automation.html" status = 200 [[redirects]] from = "/web-development" to = "/web-development.html" status = 200 [[redirects]] from = "/ecommerce-development" to = "/ecommerce-development.html" status = 200 [[redirects]] from = "/social-media-branding" to = "/social-media-branding.html" status = 200
+# Netlify Configuration File for NODE.io
+# Place this file in your project root directory
+
+[build]
+  publish = "."
+  
+# Asset Optimization
+[build.processing]
+  skip_processing = false
+
+[build.processing.css]
+  bundle = true
+  minify = true
+
+[build.processing.js]
+  bundle = true
+  minify = true
+
+[build.processing.html]
+  pretty_urls = true
+
+[build.processing.images]
+  compress = true
+
+# Cache Control Headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Cache static assets for 1 year
+    Cache-Control = "public, max-age=31536000, immutable"
+    
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    # Cache HTML for 1 hour
+    Cache-Control = "public, max-age=3600, must-revalidate"
+    
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    
+[[headers]]
+  for = "/*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    
+[[headers]]
+  for = "/*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Security Headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+# Redirects for clean URLs
+[[redirects]]
+  from = "/"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/home"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/ai-automation"
+  to = "/ai-automation.html"
+  status = 200
+
+[[redirects]]
+  from = "/web-development"
+  to = "/web-development.html"
+  status = 200
+
+[[redirects]]
+  from = "/ecommerce-development"
+  to = "/ecommerce-development.html"
+  status = 200
+
+[[redirects]]
+  from = "/social-media-branding"
+  to = "/social-media-branding.html"
+  status = 200
+
+# 404 redirect
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 404
