@@ -1,58 +1,12 @@
 {
-  "version": 2,
-  "name": "nodeio-website",
-  "builds": [
-    {
-      "src": "**/*.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "**/*.png",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "**/*.jpg",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "**/*.css",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "**/*.js",
-      "use": "@vercel/static"
-    }
-  ],
-  "routes": [
-    {
-      "src": "^/$",
-      "dest": "/home.html"
-    },
-    {
-      "src": "^/home$",
-      "dest": "/home.html"
-    },
-    {
-      "src": "^/ai-automation$",
-      "dest": "/ai-automation.html"
-    },
-    {
-      "src": "^/web-development$",
-      "dest": "/web-development.html"
-    },
-    {
-      "src": "^/ecommerce-development$",
-      "dest": "/ecommerce-development.html"
-    },
-    {
-      "src": "^/social-media-branding$",
-      "dest": "/social-media-branding.html"
-    },
-    {
-      "src": "^/(.*)\\.html$",
-      "dest": "/$1"
-    }
-  ],
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/", "destination": "/home.html" },
+    { "source": "/home", "destination": "/home.html" },
+    { "source": "/ai-automation", "destination": "/ai-automation.html" },
+    { "source": "/web-development", "destination": "/web-development.html" },
+    { "source": "/ecommerce-development", "destination": "/ecommerce-development.html" },
+    { "source": "/social-media-branding", "destination": "/social-media-branding.html" }
+  ]
 }
