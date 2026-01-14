@@ -1,0 +1,21 @@
+# Nodeio - AI Automation & Web Development Sri Lanka
+User-agent: *
+Allow: /
+
+# Disallow admin/test pages (if any)
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://nodeio.lk/sitemap.xml
+
+# Search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
