@@ -6,11 +6,6 @@
       "source": "/index.html",
       "destination": "/",
       "permanent": true
-    },
-    {
-      "source": "/home.html",
-      "destination": "/",
-      "permanent": true
     }
   ],
   "rewrites": [
@@ -33,6 +28,50 @@
     {
       "source": "/social-media-branding",
       "destination": "/social-media-branding.html"
+    },
+    {
+      "source": "/favicon.ico",
+      "destination": "/public/favicon.ico"
+    },
+    {
+      "source": "/favicon.svg",
+      "destination": "/public/favicon.svg"
+    },
+    {
+      "source": "/favicon-96x96.png",
+      "destination": "/public/favicon-96x96.png"
+    },
+    {
+      "source": "/apple-touch-icon.png",
+      "destination": "/public/apple-touch-icon.png"
+    },
+    {
+      "source": "/android-chrome-192x192.png",
+      "destination": "/public/android-chrome-192x192.png"
+    },
+    {
+      "source": "/android-chrome-512x512.png",
+      "destination": "/public/android-chrome-512x512.png"
+    },
+    {
+      "source": "/site.webmanifest",
+      "destination": "/public/site.webmanifest"
+    },
+    {
+      "source": "/logo.png",
+      "destination": "/public/logo.png"
+    },
+    {
+      "source": "/logo-white.png",
+      "destination": "/public/logo-white.png"
+    },
+    {
+      "source": "/robots.txt",
+      "destination": "/public/robots.txt"
+    },
+    {
+      "source": "/sitemap.xml",
+      "destination": "/public/sitemap.xml"
     }
   ],
   "headers": [
@@ -54,16 +93,7 @@
       ]
     },
     {
-      "source": "/(.*)\\.(jpg|jpeg|png|webp|svg|ico)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    },
-    {
-      "source": "/(.*)\\.(css|js)",
+      "source": "/public/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
